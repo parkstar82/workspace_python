@@ -124,3 +124,6 @@ X = data[:, 1:2]
 X = np.reshape(X, (-1, ))
 print(X)
 print(X[1])
+
+for i in range(5):
+	print(i)

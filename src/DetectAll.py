@@ -406,10 +406,15 @@ def deepDBSCAN():
     db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree').deep_fit(
         np.radians(coords), ori_X=photoInfos, deepEngine=engine, dc=dc)
     labels = db.labels_
-    # num_clusters = len(set(labels))
-    # clusters = pd.Series([coords[labels == n] for n in range(-2, num_clusters-2)])
-    # print(clusters)
-    # print('Number of clusters: {}'.format(num_clusters))
+    labels_set = set(labels)
+    labels_list = list(labels_set)
+    num_clusters = len(labels_set)
+    print(labels_set)
+    clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters-2)])
+    for i in range(0, len(clusters)):
+        print(i, len(clusters[i]))
+
+    print('Number of clusters: {}'.format(num_clusters))
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
     temp_df = pd.DataFrame(result)
     temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN.csv',
@@ -418,5 +423,5 @@ def deepDBSCAN():
 
 # deepDBSCAN_SF()     ## detected count 439
 # deepDBSCAN_DP()     ## detected count 376
-# deepDBSCAN()      ## detected count 389
-detectAll()
+deepDBSCAN()      ## detected count 389
+# detectAll()
