@@ -423,5 +423,5 @@ def deepDBSCAN():
 
 # deepDBSCAN_SF()     ## detected count 439
 # deepDBSCAN_DP()     ## detected count 376
-deepDBSCAN()      ## detected count 389
+deepDBSCAN()      ## detected count 354
 # detectAll()
