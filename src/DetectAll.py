@@ -411,10 +411,13 @@ def deepDBSCAN():
     num_clusters = len(labels_set)
     print(labels_set)
     clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters-2)])
+    n_clusters_items = 0
     for i in range(0, len(clusters)):
         print(i, len(clusters[i]))
+        n_clusters_items += len(clusters[i])
 
     print('Number of clusters: {}'.format(num_clusters))
+    print('Number of clusters items : {}'.format(n_clusters_items))
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
     temp_df = pd.DataFrame(result)
     temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN.csv',
