@@ -2,11 +2,18 @@
 from configparser import ConfigParser
 import psycopg2
 import os
+import sys
 import time
 import numpy as np
 from sklearn.cluster import DBSCAN
 import pandas as pd
-import deepgeo
+from deepgeo import Image, Engine, Utils
+import json
+import datetime
+
+DEBUG = False
+F_EPSILON = 0.3     # meter
+MIN_PTS = 100
 
 def logging_time(original_fn):
     def wrapper_fn(*args, **kwargs):
@@ -34,15 +41,84 @@ def config(filename='database.ini', section='postgresql'):
 
     return db
 
+def count_cluster_items(clusters):
+    n_clusters_items = 0
+    n_clusters = 0
+    for i in range(0, len(clusters)):
+        # print(i, len(clusters[i]))
+        if 0 < len(clusters[i]):
+            n_clusters += 1
+            n_clusters_items += len(clusters[i])
+
+    return n_clusters, n_clusters_items
+
 def get_photoInfo():
     """ get photoInfos in JKF Airport from database  """
+    # JFK 439
+    # sql = """   SELECT user_id, photo_id, file_path, count_person
+    #             FROM photo_direction
+    #             WHERE ST_Contains(
+    #                     ST_MakeEnvelope(-73.79590, 40.65263, -73.77178, 40.63261, 4326)
+    #                     , photo_direction.geom_lonlat)
+    #                     order by user_id
+    #                     """
+    # Central Park 1057
+    # sql = """   SELECT user_id, photo_id, file_path, count_person
+    #             FROM photo_xy_with_gps
+    #             WHERE ST_Contains(
+    #             ST_MakePolygon(
+    #                 ST_GeomFromText(
+    #                     'LINESTRING(-74.0008 40.7370,
+    #                     -73.9898 40.7322,
+    #                     -73.9697 40.7493,
+    #                     -73.9556 40.7882,
+    #                     -73.9889 40.7940,
+    #                     -74.0008 40.7370)'
+    #                 , 4326)
+    #             )
+    #             , photo_xy_with_gps.geom)
+    #             """
+    # world trade center 1468
+    # sql = """   SELECT user_id, photo_id, file_path, count_person
+    #             FROM photo_xy_with_gps
+    #             WHERE ST_Contains(
+    #             ST_MakePolygon(
+    #                 ST_GeomFromText(
+    #                     'LINESTRING(-74.0134 40.7455,
+    #                     -74.0232 40.7018,
+    #                     -74.0113 40.6950,
+    #                     -73.9874 40.7015,
+    #                     -73.9739 40.7339,
+    #                     -74.0125 40.7543,
+    #                     -74.0134 40.7455)'
+    #                 , 4326)
+    #             )
+    #             , photo_xy_with_gps.geom)
+    #             """
+    # world trade center + central park 2057
+    # sql = """   SELECT user_id, photo_id, file_path, count_person
+    #             FROM photo_xy_with_gps
+    #             WHERE ST_Contains(
+    #             ST_MakePolygon(
+    #                 ST_GeomFromText(
+    #                     'LINESTRING(-74.0134 40.7455,
+    #                     -74.0232 40.7018,
+    #                     -74.0113 40.6950,
+    #                     -73.9874 40.7015,
+    #                     -73.9556 40.7582,
+    #                     -73.9889 40.7590,
+    #                     -74.0134 40.7455)'
+    #                 , 4326)
+    #             ), photo_xy_with_gps.geom)
+    #                 """
+    ####### All Detection
     sql = """   SELECT user_id, photo_id, file_path, count_person
-                FROM photo_direction
-                WHERE ST_Contains(
-                        ST_MakeEnvelope(-73.79590, 40.65263, -73.77178, 40.63261, 4326)
-                        , photo_direction.geom_lonlat)
-                        order by user_id
-                        """
+                FROM photo_xy_with_gps
+                WHERE count_person = -1
+                LIMIT 1000
+          """
+    #######
+
     conn = None
     photoInfos = []
     try:
@@ -72,13 +148,63 @@ def get_photoInfo():
 @logging_time
 def spatialSelection():
     """ get photoInfos in JKF Airport from database  """
+    # jfk air port
+    # sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
+    #             FROM photo_direction
+    #             WHERE ST_Contains(
+    #                     ST_MakeEnvelope(-73.79590, 40.65263, -73.77178, 40.63261, 4326)
+    #                     , photo_direction.geom_lonlat)
+    #                     order by user_id, photo_id
+    #             """
+    # Central Park
+    # sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
+    #             FROM photo_xy_with_gps
+    #             WHERE ST_Contains(
+    #             ST_MakePolygon(
+    #                 ST_GeomFromText(
+    #                     'LINESTRING(-74.0008 40.7370,
+    #                     -73.9898 40.7322,
+    #                     -73.9697 40.7493,
+    #                     -73.9556 40.7882,
+    #                     -73.9889 40.7940,
+    #                     -74.0008 40.7370)'
+    #                 , 4326)
+    #             )
+    #             , photo_xy_with_gps.geom)
+    #             """
+    # world trade center 1468
+    # sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
+    #             FROM photo_xy_with_gps
+    #             WHERE ST_Contains(
+    #             ST_MakePolygon(
+    #                 ST_GeomFromText(
+    #                     'LINESTRING(-74.0134 40.7455,
+    #                     -74.0232 40.7018,
+    #                     -74.0113 40.6950,
+    #                     -73.9874 40.7015,
+    #                     -73.9739 40.7339,
+    #                     -74.0125 40.7543,
+    #                     -74.0134 40.7455)'
+    #                 , 4326)
+    #             )
+    #             , photo_xy_with_gps.geom)
+    #             """
+    # world trade center + central park 2057
     sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
-                FROM photo_direction
+                FROM photo_xy_with_gps
                 WHERE ST_Contains(
-                        ST_MakeEnvelope(-73.79590, 40.65263, -73.77178, 40.63261, 4326)
-                        , photo_direction.geom_lonlat)
-                        order by user_id, photo_id
-                        """
+                ST_MakePolygon(
+                    ST_GeomFromText(
+                        'LINESTRING(-74.0134 40.7455, 
+                        -74.0232 40.7018, 
+                        -74.0113 40.6950, 
+                        -73.9874 40.7015, 
+                        -73.9556 40.7582, 
+                        -73.9889 40.7590,
+                        -74.0134 40.7455)'
+                    , 4326)
+                ), photo_xy_with_gps.geom)
+                """
     conn = None
     photoInfos = []
     try:
@@ -112,11 +238,11 @@ def spatialSelection():
     print('Spatial selection length : {}'.format(len(photoInfos)))
     return photoInfos
 
-def update_person_count(photoInfos):
+def update_person_count(photoInfos, table_name):
     """ update count_person from photoInfo """
-    sql = """   UPDATE photo_direction
+    sql = """   UPDATE {}
                 SET count_person = %s
-                WHERE user_id = %s and photo_id = %s"""
+                WHERE user_id = %s and photo_id = %s""".format(table_name)
     conn = None
     try:
         # read connection parameters
@@ -131,6 +257,7 @@ def update_person_count(photoInfos):
 
         conn.commit()
         cur.close()
+        print('Update complete')
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
@@ -157,9 +284,13 @@ def deepCount(image, categories=[]):
                 data[text] = 1
     return data
 
+def toJSON(image, categories=None):
+    data = deepCount(image, categories=categories)
+    return json.dumps(data)
+
 @logging_time
-def detectAll():
-    engine = deepgeo.Engine()
+def detectAllDc(dc):
+    engine = Engine()
     # add model
     engine.add_model('mscoco', 'maskrcnn', 'C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/config.json')
 
@@ -169,16 +300,25 @@ def detectAll():
         # Image to Image
         path, filename = os.path.split(photoInfo[2])
         image_annotations = []
-        image = deepgeo.Image(uri=filename, image_path=path, annotations=image_annotations)
-        engine.detect('mscoco', image)
-        count_person = deepCount(image, 'person')
+        count_person = {}
+        try:
+            image = Image(uri=filename, image_path=path, annotations=image_annotations)
+            engine.detect('mscoco', image)
+            count_person = deepCount(image, dc)
+        except Exception as error:
+            print(error)
+
         if 0 < len(count_person):
-            photoInfo[3] = count_person.get('person')
+            photoInfo[3] = count_person.get(dc)
+        else:
+            photoInfo[3] = 0
 
-        print(photoInfo)
+        print('{} {}'.format(datetime.datetime.now(), photoInfo))
 
+    print('detected count {}'.format(len(photoInfos)))
     # update photoInfo
-    update_person_count(photoInfos)
+    update_person_count(photoInfos, 'photo_xy_with_gps')
+
 
 @logging_time
 def dbscan_fov():
@@ -236,7 +376,7 @@ def deepDetection(photoInfos, dc):
     # for photoInfo in photoInfos:
     #     if photoInfo[3] > dc:
     #         result.append(photoInfo)
-    print('Detected count : {}'.format(len(photoInfos)))
+    # print('deepDetection() :: Detected count : {}'.format(len(photoInfos)))
     return [ p for p in photoInfos if p[3]>=dc ]
 
 @logging_time
@@ -264,17 +404,20 @@ def deepDBSCAN_SF():
     coords = np.reshape(coords , (-1,2))
 
     # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    epsilon = 0.1 / kms_per_radian
+    epsilon = F_EPSILON / kms_per_radian
 
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree').fit(np.radians(coords))
+    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
     labels = db.labels_
     num_clusters = len(set(labels))
     clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
-    print(clusters)
-    print('Number of clusters: {}'.format(num_clusters))
+
+    # print(clusters)
+    n_clusters, n_clusters_items = count_cluster_items(clusters)
+    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+
     result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
     temp_df = pd.DataFrame(result)
     temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN_SF.csv',
@@ -297,6 +440,11 @@ def deepDBSCAN_DP():
     # load the data set
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
     photoInfos = spatialSelection()
+
+    if DEBUG:
+        dc = 1  # person_count > 0
+        photoInfos = deepDetection(photoInfos, dc)
+
     numpy_photoInfos = np.array(photoInfos)
     coords = (numpy_photoInfos[:,4:]).astype(dtype='float32')
     coords = np.reshape(coords , (-1,2))
@@ -304,22 +452,17 @@ def deepDBSCAN_DP():
     # print(np.radians(coords)[:10])
 
     # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    epsilon = 0.1 / kms_per_radian
+    epsilon = F_EPSILON / kms_per_radian
 
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree').fit(np.radians(coords))
+    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
     labels = db.labels_
     num_clusters = len(set(labels))
     clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
-    n_clusters_items = 0
-    for i in range(0, len(clusters)):
-        print(i, len(clusters[i]))
-        n_clusters_items += len(clusters[i])
-
-    print('plain Number of clusters: {}'.format(num_clusters))
-    print('plain Number of clusters items : {}'.format(n_clusters_items))
+    n_clusters, n_clusters_items = count_cluster_items(clusters)
+    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
 
     dic_result = {}
@@ -338,19 +481,27 @@ def deepDBSCAN_DP():
     detectedPhotoInfos = None
     last_cluster_id = 0
     for key in dic_result.keys():
-        print('key:{}, length:{}'.format(key, len(dic_result[key])))
+        # print('key:{}, length:{}'.format(key, len(dic_result[key])))
         if key != '-1':
             detectedResult = deepDetection(dic_result[key], dc)
-            numpy_detectedResult = np.array(detectedResult)
             detectedCount += len(dic_result[key])
+            # print('cluster dc item count : {}'.format(len(detectedResult)))
+            if 0 == len(detectedResult):
+                continue
+
+            numpy_detectedResult = np.array(detectedResult)
             # plain dbscan some cluster
             coords = (numpy_detectedResult[:, 4:]).astype(dtype='float32')
             coords = np.reshape(coords, (-1, 2))
-            db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree').fit(np.radians(coords))
+            db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
             labels = db.labels_
             num_clusters = len(set(labels))
-            detected_num_clusters += num_clusters
-            print('Number of clusters: {}'.format(num_clusters))
+            clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
+            n_clusters, n_clusters_items = count_cluster_items(clusters)
+            # print('Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+
+            detected_num_clusters += n_clusters
+            # print('Number of clusters: {}'.format(num_clusters))
             new_labels = []
             for i in labels:
                 if i >= 0:
@@ -367,9 +518,13 @@ def deepDBSCAN_DP():
             else:
                 detectedPhotoInfos = np.append(detectedPhotoInfos, resultPhotoInfos, axis=0)
 
+
+    # Noise 숫자 세기
+    noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
+    print('noise : {}'.format(noise))
     print('Detected count : {}'.format(detectedCount))
     print('detected_num_clusters : {}'.format(detected_num_clusters))
-    print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos)))
+    print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
     print('last_cluster_id : {}'.format(last_cluster_id))
 
     temp_df = pd.DataFrame(detectedPhotoInfos)
@@ -377,6 +532,7 @@ def deepDBSCAN_DP():
                    index=False, header=False, encoding='utf-8')
     ################
 
+@logging_time
 def deepDBSCAN():
     """
     Spatial First DBSCAN
@@ -393,8 +549,12 @@ def deepDBSCAN():
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
     photoInfos = spatialSelection()
 
+    if DEBUG:
+        dc = 1  # person_count > 0
+        photoInfos = deepDetection(photoInfos, dc)
+
     # detect engine and condition
-    engine = deepgeo.Engine()
+    engine = Engine()
     dc = 1  # person_count > 0
     # detectedPhotoInfos = np.array(deepDetection(photoInfos, dc))
     # print('Number of detect : {}'.format(len(detectedPhotoInfos)))
@@ -403,26 +563,20 @@ def deepDBSCAN():
     coords = np.reshape(coords, (-1, 2))
 
     # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    epsilon = 0.1 / kms_per_radian
+    epsilon = F_EPSILON / kms_per_radian
 
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree').deep_fit(
+    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').deep_fit(
         np.radians(coords), ori_X=photoInfos, deepEngine=engine, dc=dc)
     labels = db.labels_
     labels_set = set(labels)
-    labels_list = list(labels_set)
     num_clusters = len(labels_set)
-    print(labels_set)
-    clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters-2)])
-    n_clusters_items = 0
-    for i in range(0, len(clusters)):
-        print(i, len(clusters[i]))
-        n_clusters_items += len(clusters[i])
+    clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
 
-    print('Number of clusters: {}'.format(num_clusters))
-    print('Number of clusters items : {}'.format(n_clusters_items))
+    n_clusters, n_clusters_items = count_cluster_items(clusters)
+    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
     temp_df = pd.DataFrame(result)
     temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN.csv',
@@ -432,7 +586,47 @@ def deepDBSCAN():
 
 
 
+
+
+
+
+
+
+
+
 # deepDBSCAN_SF()     ## detected count 439
-deepDBSCAN_DP()     ## detected count 376
+# deepDBSCAN_DP()     ## detected count 376
 # deepDBSCAN()      ## detected count 354
-# detectAll()
+# detectAllDc('person')
+    # jfk air port detected count 439 | WorkingTime[detectAllDc]: 758.120667219162 sec |
+    # DP : 376
+    # deep : 354
+
+    # Central Park detected count 1057 | WorkingTime[detectAllDc]: 2418.82422542572 sec |
+    # SF : Number of clusters: 16 | plain Number of clusters items : 343
+    # DP : original Number of clusters items : 924, last Number of clusters items : 391
+    # deep : 863, Number of clusters: 17, Number of clusters items : 405
+
+    # world trade center detected count 1468 | WorkingTime[detectAllDc]: 3781.8988497257233 sec
+    # SF : Number of clusters: 17 | plain Number of clusters items : 553
+    # DP : original Number of clusters items : 1302, last Number of clusters items : 590, last clusters : 17
+    # deep : 1239, Number of clusters: 16, Number of clusters items : 601
+
+    # world trade center + central park detected count 2057 | WorkingTime[detectAllDc]: 5083.199026584625 sec
+    # SF : Number of clusters: 26 | plain Number of clusters items : 771
+    # DP : original Number of clusters items : 1846, last Number of clusters items : 771, last clusters : 26
+    # deep : 1763, Number of clusters: 26, Number of clusters items : 844
+#############################################
+###### All Detection
+#detectAllDc('person')
+#############################################
+# def restart():
+#     for i in range(5):
+#         detectAllDc('person')
+#
+#     python = sys.executable
+#     os.execl(python, python, *sys.argv)
+#
+# if __name__ == "__main__":
+#     restart()
+#############################################

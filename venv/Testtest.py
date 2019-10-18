@@ -1,18 +1,19 @@
-# import deepgeo
+import deepgeo
+
+engine = deepgeo.Engine()
+
+# add model
+engine.add_model('mscoco','maskrcnn','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/config.json')
+
+# create image
+image = deepgeo.Image('https://file.mk.co.kr/meet/neds/2018/08/image_readtop_2018_487988_15332644043411089.jpg','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/')
+engine.detect('mscoco',image)
+# image.draw_annotations()
+image.save("C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/")
+print(image)
 #
-# engine = deepgeo.Engine()
 #
-# # add model
-# engine.add_model('mscoco','maskrcnn','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/config.json')
-#
-# # create image
-# image = deepgeo.Image('https://file.mk.co.kr/meet/neds/2018/08/image_readtop_2018_487988_15332644043411089.jpg','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/')
-# engine.detect('mscoco',image)
-# # image.draw_annotations()
-# image.save("C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/")
-# print(image)
-#
-#
+
 #
 # import numpy as np
 # from pyqtree import Index
@@ -114,16 +115,16 @@
 # 9
 # 10
 # split input and output
-import numpy as np
-# define array
-data = np.array([[11, 22, 33],
-		[44, 55, 66],
-		[77, 88, 99]])
-# separate data
-X = data[:, 1:2]
-X = np.reshape(X, (-1, ))
-print(X)
-print(X[1])
-
-for i in range(5):
-	print(i)
+# import numpy as np
+# # define array
+# data = np.array([[11, 22, 33],
+# 		[44, 55, 66],
+# 		[77, 88, 99]])
+# # separate data
+# X = data[:, 1:2]
+# X = np.reshape(X, (-1, ))
+# print(X)
+# print(X[1])
+#
+# for i in range(5):
+# 	print(i)
