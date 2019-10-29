@@ -1,16 +1,16 @@
-import deepgeo
-
-engine = deepgeo.Engine()
-
-# add model
-engine.add_model('mscoco','maskrcnn','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/config.json')
-
-# create image
-image = deepgeo.Image('https://file.mk.co.kr/meet/neds/2018/08/image_readtop_2018_487988_15332644043411089.jpg','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/')
-engine.detect('mscoco',image)
-# image.draw_annotations()
-image.save("C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/")
-print(image)
+# import deepgeo
+#
+# engine = deepgeo.Engine()
+#
+# # add model
+# engine.add_model('mscoco','maskrcnn','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/config.json')
+#
+# # create image
+# image = deepgeo.Image('https://file.mk.co.kr/meet/neds/2018/08/image_readtop_2018_487988_15332644043411089.jpg','C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/')
+# engine.detect('mscoco',image)
+# # image.draw_annotations()
+# image.save("C:/00.Research/10.paper/2019_04_2019_04.Deep-DBSCAN/deepgeo/")
+# print(image)
 #
 #
 
@@ -128,3 +128,17 @@ print(image)
 #
 # for i in range(5):
 # 	print(i)
+
+count = 0
+
+def selfCount(count):
+    count += 1
+    return True, count
+
+has, count = selfCount(count)
+print(has)
+print(count)
+has, count = selfCount(count)
+print(count)
+has, count = selfCount(count)
+print(count)

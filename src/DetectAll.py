@@ -13,7 +13,7 @@ import datetime
 
 DEBUG = False
 F_EPSILON = 0.3     # meter
-MIN_PTS = 100
+MIN_PTS = 15
 
 def logging_time(original_fn):
     def wrapper_fn(*args, **kwargs):
@@ -146,7 +146,7 @@ def get_photoInfo():
     return photoInfos
 
 @logging_time
-def spatialSelection():
+def spatialSelection(sql=None):
     """ get photoInfos in JKF Airport from database  """
     # jfk air port
     # sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
@@ -190,23 +190,26 @@ def spatialSelection():
     #             , photo_xy_with_gps.geom)
     #             """
     # world trade center + central park 2057
-    sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
-                FROM photo_xy_with_gps
-                WHERE ST_Contains(
-                ST_MakePolygon(
-                    ST_GeomFromText(
-                        'LINESTRING(-74.0134 40.7455, 
-                        -74.0232 40.7018, 
-                        -74.0113 40.6950, 
-                        -73.9874 40.7015, 
-                        -73.9556 40.7582, 
-                        -73.9889 40.7590,
-                        -74.0134 40.7455)'
-                    , 4326)
-                ), photo_xy_with_gps.geom)
-                """
+    if None is sql:
+        sql = """   SELECT user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
+                    FROM photo_xy_with_gps
+                    WHERE ST_Contains(
+                    ST_MakePolygon(
+                        ST_GeomFromText(
+                            'LINESTRING(-74.0134 40.7455,
+                            -74.0232 40.7018,
+                            -74.0113 40.6950,
+                            -73.9874 40.7015,
+                            -73.9556 40.7582,
+                            -73.9889 40.7590,
+                            -74.0134 40.7455)'
+                        , 4326)
+                    ), photo_xy_with_gps.geom)
+                    """
     conn = None
     photoInfos = []
+    rnd_user_id = None
+    rnd_photo_id = None
     try:
         # read connection parameters
         params = config()
@@ -227,6 +230,8 @@ def spatialSelection():
                 , float(row[4])
                 , float(row[5])
             ])
+            rnd_user_id = row[6]
+            rnd_photo_id = row[7]
 
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
@@ -236,7 +241,7 @@ def spatialSelection():
             conn.close()
 
     print('Spatial selection length : {}'.format(len(photoInfos)))
-    return photoInfos
+    return photoInfos,rnd_user_id, rnd_photo_id
 
 def update_person_count(photoInfos, table_name):
     """ update count_person from photoInfo """
@@ -380,7 +385,7 @@ def deepDetection(photoInfos, dc):
     return [ p for p in photoInfos if p[3]>=dc ]
 
 @logging_time
-def deepDBSCAN_SF():
+def deepDBSCAN_SF(photoInfos=None, filePath=None):
     """
     Spatial First DBSCAN
     1. Spatial Selection
@@ -394,38 +399,46 @@ def deepDBSCAN_SF():
 
     # load the data set
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
-    photoInfos = spatialSelection()
+    if None is photoInfos:
+        photoInfos = spatialSelection()
+
+    if None is filePath:
+        filePath = r'C:\workspace_python\logs\result_deepDBSCAN_SF.csv'
 
     dc = 1 # person_count > 0
+    checkDcCount = len(photoInfos)
     detectedPhotoInfos = np.array(deepDetection(photoInfos, dc))
-    print('Number of detect : {}'.format(len(detectedPhotoInfos)))
+    print('조건을 검사하는 개수 : {}'.format(checkDcCount))
+    print('조건을 만족하는 개수 : {}'.format(len(detectedPhotoInfos)))
 
-    coords = (detectedPhotoInfos[:,4:]).astype(dtype='float32')
-    coords = np.reshape(coords , (-1,2))
+    if 0 < len(detectedPhotoInfos):
+        coords = (detectedPhotoInfos[:,4:]).astype(dtype='float32')
+        coords = np.reshape(coords , (-1,2))
 
-    # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    epsilon = F_EPSILON / kms_per_radian
+        # define epsilon as 1.5 kilometers, converted to radians for use by haversine
+        epsilon = F_EPSILON / kms_per_radian
 
-    #############################################################################
-    # Compute DBSCAN
-    # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
-    labels = db.labels_
-    num_clusters = len(set(labels))
-    clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
+        #############################################################################
+        # Compute DBSCAN
+        # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
+        db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
+        labels = db.labels_
+        num_clusters = len(set(labels))
+        clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
 
-    # print(clusters)
-    n_clusters, n_clusters_items = count_cluster_items(clusters)
-    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+        # print(clusters)
+        n_clusters, n_clusters_items = count_cluster_items(clusters)
+        print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
 
-    result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
-    temp_df = pd.DataFrame(result)
-    temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN_SF.csv',
-                   index=False, header=False, encoding='utf-8')
+        result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
+        temp_df = pd.DataFrame(result)
+        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+
+    return checkDcCount
     ################
 
 @logging_time
-def deepDBSCAN_DP():
+def deepDBSCAN_DP(photoInfos=None, filePath=None):
     """
     Spatial First DBSCAN
     1. Spatial Selection
@@ -439,7 +452,11 @@ def deepDBSCAN_DP():
 
     # load the data set
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
-    photoInfos = spatialSelection()
+    if None is photoInfos:
+        photoInfos = spatialSelection()
+
+    if None is filePath:
+        filePath = r'C:\workspace_python\logs\result_deepDBSCAN_DP.csv'
 
     if DEBUG:
         dc = 1  # person_count > 0
@@ -520,20 +537,21 @@ def deepDBSCAN_DP():
 
 
     # Noise 숫자 세기
-    noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
-    print('noise : {}'.format(noise))
-    print('Detected count : {}'.format(detectedCount))
-    print('detected_num_clusters : {}'.format(detected_num_clusters))
-    print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
-    print('last_cluster_id : {}'.format(last_cluster_id))
+    if not None is detectedPhotoInfos:
+        noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
+        print('noise : {}'.format(noise))
+        print('조건을 검사하는 개수 : {}'.format(detectedCount))
+        print('detected_num_clusters : {}'.format(detected_num_clusters))
+        print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
+        print('last_cluster_id : {}'.format(last_cluster_id))
 
-    temp_df = pd.DataFrame(detectedPhotoInfos)
-    temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN_DP.csv',
-                   index=False, header=False, encoding='utf-8')
+        temp_df = pd.DataFrame(detectedPhotoInfos)
+        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+    return detectedCount
     ################
 
 @logging_time
-def deepDBSCAN():
+def deepDBSCAN(photoInfos=None, filePath=None):
     """
     Spatial First DBSCAN
     1. Spatial Selection
@@ -547,7 +565,11 @@ def deepDBSCAN():
 
     # load the data set
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
-    photoInfos = spatialSelection()
+    if None is photoInfos:
+        photoInfos = spatialSelection()
+
+    if None is filePath:
+        filePath = r'C:\workspace_python\logs\result_deepDBSCAN.csv'
 
     if DEBUG:
         dc = 1  # person_count > 0
@@ -568,7 +590,7 @@ def deepDBSCAN():
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').deep_fit(
+    db, detectedCount = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').deep_fit(
         np.radians(coords), ori_X=photoInfos, deepEngine=engine, dc=dc)
     labels = db.labels_
     labels_set = set(labels)
@@ -579,14 +601,85 @@ def deepDBSCAN():
     print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
     temp_df = pd.DataFrame(result)
-    temp_df.to_csv(r'C:\workspace_python\logs\result_deepDBSCAN.csv',
-                   index=False, header=False, encoding='utf-8')
+    temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+
+    print('조건을 검사하는 개수 : {}'.format(detectedCount))
+    return detectedCount
+
 
 ##########################################
+@logging_time
+def save(filepath, rows):
+    with open(filepath,'a') as csv:
+        for row in rows:
+            csv.write(row)
 
 
+@logging_time
+def randomSelectedExp():
+    """
+    1. Random 좌표 600개 선정
+    2. 1에서 선정된 좌표 1개를 중심으로 5km 반경의 사진들을 얻어옴
+    3. 2에서 가져온 사진들로 SF, DP, DeepDBSCAN 수행.
+    4. 3의 각 알고리즘 결과를 File로 저장. [owner_id, photo_id, lon, lat, SF_count, DP_count, Deep_count]
+    """
+    result = []
+    result.append('USER_ID,PHOTO_ID,SF,DP,DEEP\n')
+    for i in range(600):
+        SQL = """   SELECT 
+                        USER_ID, PHOTO_ID, FILE_PATH, COUNT_PERSON, 
+                        LONLAT[0] AS LON, LONLAT[1] AS LAT,
+                        RND_USER_ID, RND_PHOTO_ID
+                    FROM 
+                        PHOTO_XY_WITH_GPS_RANDOM_SELECTED_5KM
+                    WHERE 
+                        RND_USER_ID=(
+                            SELECT USER_ID
+                            FROM PHOTO_XY_WITH_GPS_RANDOM_SELECTED
+                            ORDER BY USER_ID, PHOTO_ID
+                            OFFSET {} LIMIT 1
+                        )
+                    AND 
+                        RND_PHOTO_ID=(
+                            SELECT PHOTO_ID
+                            FROM PHOTO_XY_WITH_GPS_RANDOM_SELECTED
+                            ORDER BY USER_ID, PHOTO_ID
+                            OFFSET {} LIMIT 1
+                        )
+                """.format(i, i)
+        photoInfosAndUserinfo = spatialSelection(SQL)
+        photoInfos = photoInfosAndUserinfo[0]
+        rnd_user_id = photoInfosAndUserinfo[1]
+        rnd_photo_id = photoInfosAndUserinfo[2]
 
+        preFilepath = r'C:\workspace_python\logs\{}_{}_{}_{}_{}_'.format(i, rnd_user_id, rnd_photo_id, F_EPSILON*1000, MIN_PTS)
+        filePath_SF = preFilepath + 'result_SF_DBSCAN.csv'
+        filePath_DP = preFilepath + 'result_DP_DBSCAN.csv'
+        filePath_DEEP = preFilepath + 'result_DEEP_DBSCAN.csv'
 
+        print('=========================SF=========================')
+        count_sf = deepDBSCAN_SF(photoInfos, filePath_SF)
+        print('=========================DP=========================')
+        count_dp = deepDBSCAN_DP(photoInfos, filePath_DP)
+        print('=========================DEEP=======================')
+        count_deep = deepDBSCAN(photoInfos, filePath_DEEP)
+        row = '{},{},{},{},{}\n'.format(rnd_user_id, rnd_photo_id, count_sf, count_dp, count_deep)
+        print('=========================ROW========================')
+        print(row)
+        print('=========================END========================')
+        result.append(row)
+
+    filepath = r'C:\workspace_python\logs\RandomSelectedPerformance_{}_{}.csv'.format(F_EPSILON*1000, MIN_PTS)
+    save(filepath, result)
+
+##########################################
+LIST_F_EPSILON = [0.1, 0.2, 0.3, 0.4, 0.5]
+LIST_MIN_PTS = [5, 10, 15, 20, 30, 40, 50]
+for i in range(5):
+    F_EPSILON = LIST_F_EPSILON[i]
+    for j in range(5):
+        MIN_PTS = LIST_MIN_PTS[j]
+        randomSelectedExp()
 
 
 
