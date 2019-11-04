@@ -408,8 +408,8 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None):
     dc = 1 # person_count > 0
     checkDcCount = len(photoInfos)
     detectedPhotoInfos = np.array(deepDetection(photoInfos, dc))
-    print('조건을 검사하는 개수 : {}'.format(checkDcCount))
-    print('조건을 만족하는 개수 : {}'.format(len(detectedPhotoInfos)))
+    # print('조건을 검사하는 개수 : {}'.format(checkDcCount))
+    # print('조건을 만족하는 개수 : {}'.format(len(detectedPhotoInfos)))
 
     if 0 < len(detectedPhotoInfos):
         coords = (detectedPhotoInfos[:,4:]).astype(dtype='float32')
@@ -428,11 +428,11 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None):
 
         # print(clusters)
         n_clusters, n_clusters_items = count_cluster_items(clusters)
-        print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+        # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
 
-        result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
-        temp_df = pd.DataFrame(result)
-        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+        # result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
+        # temp_df = pd.DataFrame(result)
+        # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
 
     return checkDcCount
     ################
@@ -537,16 +537,16 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None):
 
 
     # Noise 숫자 세기
-    if not None is detectedPhotoInfos:
-        noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
-        print('noise : {}'.format(noise))
-        print('조건을 검사하는 개수 : {}'.format(detectedCount))
-        print('detected_num_clusters : {}'.format(detected_num_clusters))
-        print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
-        print('last_cluster_id : {}'.format(last_cluster_id))
+    # if not None is detectedPhotoInfos:
+    #     noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
+    #     print('noise : {}'.format(noise))
+    #     print('조건을 검사하는 개수 : {}'.format(detectedCount))
+    #     print('detected_num_clusters : {}'.format(detected_num_clusters))
+    #     print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
+    #     print('last_cluster_id : {}'.format(last_cluster_id))
 
-        temp_df = pd.DataFrame(detectedPhotoInfos)
-        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+        # temp_df = pd.DataFrame(detectedPhotoInfos)
+        # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
     return detectedCount
     ################
 
@@ -595,22 +595,22 @@ def deepDBSCAN(photoInfos=None, filePath=None):
     labels = db.labels_
     labels_set = set(labels)
     num_clusters = len(labels_set)
-    clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
+    # clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
 
-    n_clusters, n_clusters_items = count_cluster_items(clusters)
-    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
-    result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
-    temp_df = pd.DataFrame(result)
-    temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
-
-    print('조건을 검사하는 개수 : {}'.format(detectedCount))
+    # n_clusters, n_clusters_items = count_cluster_items(clusters)
+    # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+    # result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
+    # temp_df = pd.DataFrame(result)
+    # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+    #
+    # print('조건을 검사하는 개수 : {}'.format(detectedCount))
     return detectedCount
 
 
 ##########################################
 @logging_time
 def save(filepath, rows):
-    with open(filepath,'a') as csv:
+    with open(filepath,'w+') as csv:
         for row in rows:
             csv.write(row)
 
@@ -657,16 +657,16 @@ def randomSelectedExp():
         filePath_DP = preFilepath + 'result_DP_DBSCAN.csv'
         filePath_DEEP = preFilepath + 'result_DEEP_DBSCAN.csv'
 
-        print('=========================SF=========================')
+        # print('=========================SF=========================')
         count_sf = deepDBSCAN_SF(photoInfos, filePath_SF)
-        print('=========================DP=========================')
+        # print('=========================DP=========================')
         count_dp = deepDBSCAN_DP(photoInfos, filePath_DP)
-        print('=========================DEEP=======================')
+        # print('=========================DEEP=======================')
         count_deep = deepDBSCAN(photoInfos, filePath_DEEP)
         row = '{},{},{},{},{}\n'.format(rnd_user_id, rnd_photo_id, count_sf, count_dp, count_deep)
-        print('=========================ROW========================')
+        # print('=========================ROW========================')
         print(row)
-        print('=========================END========================')
+        # print('=========================END========================')
         result.append(row)
 
     filepath = r'C:\workspace_python\logs\RandomSelectedPerformance_{}_{}.csv'.format(F_EPSILON*1000, MIN_PTS)
@@ -674,10 +674,10 @@ def randomSelectedExp():
 
 ##########################################
 LIST_F_EPSILON = [0.1, 0.2, 0.3, 0.4, 0.5]
-LIST_MIN_PTS = [5, 10, 15, 20, 30, 40, 50]
+LIST_MIN_PTS = [5, 10, 15, 20, 25, 30]
 for i in range(5):
     F_EPSILON = LIST_F_EPSILON[i]
-    for j in range(5):
+    for j in range(7):
         MIN_PTS = LIST_MIN_PTS[j]
         randomSelectedExp()
 

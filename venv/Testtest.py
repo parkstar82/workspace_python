@@ -135,10 +135,13 @@ def selfCount(count):
     count += 1
     return True, count
 
-has, count = selfCount(count)
-print(has)
-print(count)
-has, count = selfCount(count)
-print(count)
-has, count = selfCount(count)
-print(count)
+# has, count = selfCount(count)
+# print(has)
+# print(count)
+# has, count = selfCount(count)
+# print(count)
+# has, count = selfCount(count)
+# print(count)
+
+for j in range(7):
+    print(j)
