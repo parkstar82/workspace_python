@@ -1,30 +1,22 @@
 # !/usr/bin/python
-from configparser import ConfigParser
-import psycopg2
-import os
-import sys
-import time
-import numpy as np
-from sklearn.cluster import DBSCAN
-import pandas as pd
-from deepgeo import Image, Engine, Utils
 import json
-import datetime
+import time
+from configparser import ConfigParser
+
+import numpy as np
+import pandas as pd
+import psycopg2
+from _deepdbscan import DeepDBSCAN
+from deepgeo import Engine
+
+from _utils import logging_time
+from sklearn.cluster import DBSCAN
 
 DEBUG = False
 F_EPSILON = 0.3     # meter
 MIN_PTS = 15
 
-def logging_time(original_fn):
-    def wrapper_fn(*args, **kwargs):
-        start_time = time.time()
-        result = original_fn(*args, **kwargs)
-        end_time = time.time()
-        print("WorkingTime[{}]: {} sec".format(original_fn.__name__, end_time-start_time))
-        return result
-    return wrapper_fn
-
-def config(filename='database.ini', section='postgresql'):
+def config(filename='..\data\database.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
@@ -294,6 +286,7 @@ def toJSON(image, categories=None):
     data = deepCount(image, categories=categories)
     return json.dumps(data)
 
+''' 
 @logging_time
 def detectAllDc(dc):
     engine = Engine()
@@ -325,6 +318,7 @@ def detectAllDc(dc):
     # update photoInfo
     update_person_count(photoInfos, 'photo_xy_with_gps')
 
+'''
 
 @logging_time
 def dbscan_fov():
@@ -591,7 +585,7 @@ def deepDBSCAN(photoInfos=None, filePath=None):
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db, detectedCount = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').deep_fit(
+    db, detectedCount = DeepDBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(
         np.radians(coords), ori_X=photoInfos, deepEngine=engine, dc=dc)
     labels = db.labels_
     labels_set = set(labels)
@@ -611,6 +605,7 @@ def deepDBSCAN(photoInfos=None, filePath=None):
 @logging_time
 def deepDBSCAN_DF_and_FD(photoInfos=None, filePath=None):
     """
+    TODO : 구현 중
     DBSCAN First and Fully DBSCAN
     1. Spatial Selection
     2. Plain DBSCAN
