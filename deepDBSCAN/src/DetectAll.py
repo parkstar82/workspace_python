@@ -590,15 +590,15 @@ def deepDBSCAN(photoInfos=None, filePath=None):
     labels = db.labels_
     labels_set = set(labels)
     num_clusters = len(labels_set)
-    # clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
+    clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
 
-    # n_clusters, n_clusters_items = count_cluster_items(clusters)
-    # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
-    # result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
-    # temp_df = pd.DataFrame(result)
-    # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
-    #
-    # print('조건을 검사하는 개수 : {}'.format(detectedCount))
+    n_clusters, n_clusters_items = count_cluster_items(clusters)
+    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+    result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
+    temp_df = pd.DataFrame(result)
+    temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+
+    print('조건을 검사하는 개수 : {}'.format(detectedCount))
     return detectedCount
 
 

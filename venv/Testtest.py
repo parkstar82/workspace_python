@@ -128,20 +128,59 @@
 #
 # for i in range(5):
 # 	print(i)
+#
+# count = 0
+#
+# def selfCount(count):
+#     count += 1
+#     return True, count
+#
+# # has, count = selfCount(count)
+# # print(has)
+# # print(count)
+# # has, count = selfCount(count)
+# # print(count)
+# # has, count = selfCount(count)
+# # print(count)
+#
+# for j in range(7):
+#     print(j)
+#
 
-count = 0
 
-def selfCount(count):
-    count += 1
-    return True, count
+import numpy as np
 
-# has, count = selfCount(count)
-# print(has)
-# print(count)
-# has, count = selfCount(count)
-# print(count)
-# has, count = selfCount(count)
-# print(count)
+def removeNoise(nb_array, item):
+    # print('Remove item {}'.format(item))
+    for i in range(len(nb_array)):
+        print('i : {}'.format(nb_array[i]))
+        nb_array[i] = np.setdiff1d(nb_array[i], [item])
+        print('i result : {}'.format(nb_array[i]))
 
-for j in range(7):
-    print(j)
+data = [[2,1,3,6,5,4],[6,5,4],[7,1,9,8,2,3]]
+ab = np.array(data)
+
+# print(ab)
+# # print(ab[ab != 1])
+# # ab = ab[ab != 1]
+# print(ab.shape[0])
+print(ab)
+
+
+# print(ab[0])
+# ab[0] = np.setdiff1d(ab[0], [1])
+# print(type(ab[0]))
+# temp = np.array([1,2,3,4,5,6,1,2,1,3])
+# print(type(temp))
+# print(np.array(temp))
+# temp = temp[temp != 6]
+# print(temp)
+removeNoise(ab,1)
+# print(ab[0])
+print(ab)
+
+# arr = np.array([4,5,6,7,8,9,10,11,4,5,6,33,6,7])
+# arr = arr[arr != 6]
+#
+# print('Modified Numpy Array by deleting all occurrences of 6')
+# print(arr)

@@ -13,7 +13,6 @@ import time
 import warnings
 
 import numpy as np
-from _deep_dbscan_inner import deep_dbscan_inner
 from scipy import sparse
 
 from sklearn.base import BaseEstimator, ClusterMixin
@@ -179,7 +178,7 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
 
     #
     #
-    # Deep Filtering of Neighborhoods Graph 
+    # Deep Filtering of Neighborhoods Graph pr
     #
     #    
     deepGraphFiltering( core_samples, neighborhoods, min_samples, detectFunc)
@@ -193,7 +192,8 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
     #
     #   
 def deepGraphFiltering( is_core, neighborhoods, minPts, detectFunc ):
-    print( is_core, neighborhoods )
+    print('deepGraphFiltering')
+    # print( is_core, neighborhoods )
     # algorithm
     # 1) detectionOrders = sortByNumberOfNeighbors( neighborhoods )
     #   sort neighborhoods by number of neighbors, and put it into detectOrders
@@ -250,3 +250,157 @@ def deepDetection(photoInfos, dc):
     """
     print('Detected count : {}'.format(len(photoInfos)))
     return [ p for p in photoInfos if p[3]>=dc ]
+
+
+
+###########################################################################
+class ObjectDetector:
+    """
+    deepDBSCAN에서 객체검출 엔진을 사용하여 DBSCAN 중에 실시간으로 객체를 검출한다.
+    1. 성능측정을 위해 객체검출 시도 회수를 저장한다.
+    """
+    def __init__(self, list_size=0):
+        self.detectedCount = 0
+        ## 1 : person, 0 : not person, -1 : not detected
+        self.is_detected = np.full(list_size, -1, dtype=np.intp)
+
+
+    def hasObjects(self, object, dc, index):
+        # print('hasPerson : {}'.format(index))
+
+        if self.is_detected[index] == -1:
+            self.detectedCount += 1
+            if object >= dc:
+                self.is_detected[index] = 1
+            else:
+                self.is_detected[index] = 0
+
+        return object >= dc
+
+
+def removeNoise(nb_array, item):
+    # print('Remove item {}'.format(item))
+
+    for i in range(len(nb_array)):
+        print('len : {}'.format(len(nb_array[i])))
+        nb_array[i] = np.setdiff1d(nb_array[i], [item])
+        print('len : {}'.format(len(nb_array[i])))
+
+
+def deep_dbscan_inner(is_core, neighborhoods, labels,
+                      ori_X, dc=0, min_samples=1):
+    """
+    DBSCAN 알고리즘 실행
+    :param is_core: 코어 여부 판단. 1차원 int 배열, 1 : core, 0: not core
+    :param neighborhoods: 이웃 리스트 1차원 리스트 배열
+    :param labels: -1로 초기화 된 1차원 int 배열. 반환값
+    :param ori_X: 가공되지 않은 원본 데이터
+    :param dc: 디텍트 조건
+    :param min_samples: DBSCAN 최소 개수 조건
+    :return: int detectedCount 성능측정용도
+    """
+
+    label_num = 0
+    # v = 0
+    stack = []
+
+    # print('dc : {}, min_samples : {}'.format(dc, min_samples))
+    ## 1 : person, 0 : not person, -1 : not detected
+
+    objectDetector = ObjectDetector(ori_X.shape[0])
+
+    for i in range(labels.shape[0]):
+        if labels[i] != -1 or not is_core[i]:
+            continue
+
+        # if not hasPerson(ori_X[i], dc, i):
+        #     labels[i] = -2
+        #     is_core[i] = 0
+        #     continue
+
+        # Depth-first search starting from i, ending at the non-core points.
+        # This is very similar to the classic algorithm for computing connected
+        # components, the difference being that we label non-core points as
+        # part of a cluster (component), but don't expand their neighborhoods.
+        isUpdatedLables = False
+        while True:
+            if labels[i] == -1 and is_core[i] and len(neighborhoods[i]) > min_samples:
+                if objectDetector.hasObjects(ori_X[i], dc, i):
+                    neighb = neighborhoods[i]
+                    detected = []
+                    for j in range(neighb.shape[0]):
+                        v = neighb[j]
+                        if objectDetector.hasObjects(ori_X[v], dc, v):
+                            detected.append(v)
+                        else:
+                            labels[v] = -2
+                            is_core[v] = 0
+                            removeNoise(neighborhoods, v)
+
+                    # label 할당
+                    labels[i] = label_num
+                    # min_samples 조건을 만족하면 클러스터 확장
+                    if len(detected) >= min_samples:
+                        for j in range(len(detected)):
+                            index = detected[j]
+                            if labels[index] == -1:
+                                if is_core[index]:
+                                    stack.append(index)
+                                    isUpdatedLables = True
+                                else:
+                                    # core 아니면 label 할당
+                                    labels[index] = label_num
+                # Not Person
+                else:
+                    is_core[i] = 0
+                    labels[i] = -2
+                    removeNoise(neighborhoods, v)
+            elif labels[i] == -1:
+                labels[i] = label_num
+
+            if 0 == len(stack):
+                break
+            i = stack.pop()
+
+        # end while
+        if isUpdatedLables:
+            label_num += 1
+
+    # print('dbscan_inner detectedCount : {}'.format(detectedCount))
+    return objectDetector.detectedCount
+
+
+
+
+# detectFunc는 detection 처리를 위한 함수
+# def deep_dbscan_inner( is_core, neighborhoods, labels,
+#                        ori_X, dc=0, minPts=1, detectFunc=None):
+#     i = 0
+#     label_num = 0
+#     v = 0
+#     neighb : array
+#     stack = []
+#
+#     for i in range(labels.shape[0]):
+#         if labels[i] != -1 or not is_core[i]:
+#             continue
+#
+#         # Depth-first search starting from i, ending at the non-core points.
+#         # This is very similar to the classic algorithm for computing connected
+#         # components, the difference being that we label non-core points as
+#         # part of a cluster (component), but don't expand their neighborhoods.
+#         while True:
+#             if labels[i] == -1:
+#                 labels[i] = label_num
+#                 if is_core[i]:
+#                     neighb = neighborhoods[i]
+#                     for i in range(neighb.shape[0]):
+#                         v = neighb[i]
+#                         if labels[v] == -1:
+#                             stack.append( v)
+#
+#             if stack.size() == 0:
+#                 break
+#             i = stack.pop()
+#
+#         label_num += 1
