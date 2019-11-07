@@ -281,11 +281,20 @@ class ObjectDetector:
 def removeNoise(nb_array, item):
     # print('Remove item {}'.format(item))
 
-    for i in range(len(nb_array)):
-        print('len : {}'.format(len(nb_array[i])))
-        nb_array[i] = np.setdiff1d(nb_array[i], [item])
-        print('len : {}'.format(len(nb_array[i])))
+    """
+    TODO : 성능 문제 있음.
+    removeNoise ON
+    plain Number of clusters : 7, clusters items : 850
+    조건을 검사하는 개수 : 1842
+    WorkingTime[deepDBSCAN]: 49.4766526222229 sec
 
+    removeNoise OFF
+    plain Number of clusters : 7, clusters items : 837
+    조건을 검사하는 개수 : 1892
+    WorkingTime[deepDBSCAN]: 1.2882966995239258 sec
+    """
+    for i in range(len(nb_array)):
+        nb_array[i] = np.setdiff1d(nb_array[i], [item])
 
 def deep_dbscan_inner(is_core, neighborhoods, labels,
                       ori_X, dc=0, min_samples=1):
