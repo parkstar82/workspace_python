@@ -423,11 +423,11 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None):
 
         # print(clusters)
         n_clusters, n_clusters_items = count_cluster_items(clusters)
-        # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+        print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
 
-        # result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
-        # temp_df = pd.DataFrame(result)
-        # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+        result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
+        temp_df = pd.DataFrame(result)
+        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
 
     return checkDcCount
     ################
@@ -532,16 +532,16 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None):
 
 
     # Noise 숫자 세기
-    # if not None is detectedPhotoInfos:
-    #     noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
-    #     print('noise : {}'.format(noise))
-    #     print('조건을 검사하는 개수 : {}'.format(detectedCount))
-    #     print('detected_num_clusters : {}'.format(detected_num_clusters))
-    #     print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
-    #     print('last_cluster_id : {}'.format(last_cluster_id))
+    if not None is detectedPhotoInfos:
+        noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
+        print('noise : {}'.format(noise))
+        print('조건을 검사하는 개수 : {}'.format(detectedCount))
+        print('detected_num_clusters : {}'.format(detected_num_clusters))
+        print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
+        print('last_cluster_id : {}'.format(last_cluster_id))
 
-        # temp_df = pd.DataFrame(detectedPhotoInfos)
-        # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+        temp_df = pd.DataFrame(detectedPhotoInfos)
+        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
     return detectedCount
     ################
 
@@ -598,7 +598,7 @@ def deepDBSCAN(photoInfos=None, filePath=None):
     temp_df = pd.DataFrame(result)
     temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
 
-    print('조건을 검사하는 개수 : {}'.format(detectedCount))
+    # print('조건을 검사하는 개수 : {}'.format(detectedCount))
     return detectedCount
 
 
@@ -792,9 +792,9 @@ def randomSelectedExp():
 #         randomSelectedExp()
 #########################################
 
-deepDBSCAN()
-
-
+print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_SF()))
+print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_DP()))
+print('조건을 검사하는 개수 : {}'.format(deepDBSCAN()))
 
 
 
