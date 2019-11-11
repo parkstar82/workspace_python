@@ -210,3 +210,11 @@ stack.append(6)
 print(stack)
 print(stack.pop())
 print(stack)
+
+for i in range(10,0,-1):
+    print(i)
+
+
+arr = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
+print(arr)
+print(np.delete(arr, [0,2], 0))
