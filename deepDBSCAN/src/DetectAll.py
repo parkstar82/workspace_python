@@ -44,6 +44,13 @@ def count_cluster_items(clusters):
 
     return n_clusters, n_clusters_items
 
+
+def printClusterInfo(clusters):
+    print('cluster id : number of items')
+    for i in range(len(clusters)):
+        print('{} : {}'.format(i, len(clusters[i])))
+
+
 def get_photoInfo():
     """ get photoInfos in JKF Airport from database  """
     # JFK 439
@@ -421,11 +428,13 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None):
         num_clusters = len(set(labels))
         clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
 
-        # print(clusters)
-        n_clusters, n_clusters_items = count_cluster_items(clusters)
-        print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+        # n_clusters, n_clusters_items = count_cluster_items(clusters)
+        # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+
+        printClusterInfo(clusters)
 
         result = np.append(pd.DataFrame(labels).to_numpy(), detectedPhotoInfos, axis=1)
+        # printResultInfo(result)
         temp_df = pd.DataFrame(result)
         temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
 
@@ -474,6 +483,7 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None):
     num_clusters = len(set(labels))
     clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
     n_clusters, n_clusters_items = count_cluster_items(clusters)
+    printClusterInfo(clusters)
     print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
 
@@ -592,8 +602,10 @@ def deepDBSCAN(photoInfos=None, filePath=None):
     num_clusters = len(labels_set)
     clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
 
-    n_clusters, n_clusters_items = count_cluster_items(clusters)
-    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+    # n_clusters, n_clusters_items = count_cluster_items(clusters)
+    # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+
+    printClusterInfo(clusters)
     result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
     temp_df = pd.DataFrame(result)
     temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
@@ -795,6 +807,10 @@ def randomSelectedExp():
 print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_SF()))
 print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_DP()))
 print('조건을 검사하는 개수 : {}'.format(deepDBSCAN()))
+
+
+
+
 
 
 

@@ -183,11 +183,12 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
     #
     # Deep Filtering of Neighborhoods Graph pr
     #
-    #    
-    # detectedCount = deepGraphFiltering( core_samples, neighborhoods, labels, min_samples, detectFunc, detectedArray, dc)
-    detectedCount= deepGraphFiltering_slow(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
-    print('deepGraphFiltering detectedCount : {}'.format(detectedCount))
+    # Compare with DeepGraphFiltering_all vs deepGraphFiltering_slow
+    detectedCount= deepGraphFiltering_slow2(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
+    # detectedCount = deepGraphFiltering_all(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
+
     temp_detectedCount = detectedCount
+    recalc_core(core_samples, neighborhoods, min_samples)
 
     # detectedCount += deep_dbscan_inner(core_samples, neighborhoods, labels, detectedArray, dc, min_samples)
     # detectedCount += deep_dbscan_inner_ori(core_samples, neighborhoods, labels, detectedArray, dc, min_samples, detectFunc)
@@ -197,9 +198,47 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
     return np.where(core_samples)[0], labels, detectedCount
 
 
-@logging_time
-def deepGraphFiltering_slow( is_core, neighborhoods, labels, n_neighbors, minPts, detectFunc):
+def recalc_core(core_samples, neighborhoods, min_samples):
+
+    for i in range(len(core_samples)):
+        # if i == 78:
+        #     print('core_samples[i] : {}, core_samples[i] : {}'.format(core_samples[i], ) )
+        if core_samples[i] and len(neighborhoods[i]) < min_samples:
+            core_samples[i] = False
+
+
+def removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc):
+    labels[id] = -2
+    is_core[id] = False
+    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [id])
+
+    stack = set([])
+    while True:
+        # 내 이웃들에서 나를 빼기
+        for neighbor_id in neighborhoods[id]:
+            neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [id])
+
+        # 내 이웃들을 검사해서 스택에 넣기
+        if minPts < len(neighborhoods[id]):
+            for neighbor_id in neighborhoods[id]:
+                if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
+                    neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [neighbor_id])
+                    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [neighbor_id])
+                    labels[neighbor_id] = -2
+                    is_core[neighbor_id] = False
+                    stack.add(neighbor_id)
+
+        if 0 == len(stack):
+            break
+
+        id = list(stack)[0]
+        stack.remove(id)
+
+
+def deepGraphFiltering_slow2( is_core, neighborhoods, labels, n_neighbors, minPts, detectFunc):
     ### ID 부여
+
+    isDetected = np.array(len(labels))  # 0: not yet,   1: detectFunc==true;   -1 detectFunc==false
     # Create id array
     sorted_n_neighbors = np.array(range(len(neighborhoods))).reshape(len(neighborhoods), -1)
     # Merge id array and neighbor array
@@ -210,42 +249,87 @@ def deepGraphFiltering_slow( is_core, neighborhoods, labels, n_neighbors, minPts
 
     ### Delete point without neighbors.
     noise_index = []
+    # print ( sorted_n_neighbors, len(sorted_n_neighbors))
     for i in range(len(sorted_n_neighbors)-1, 0,-1):
-        if sorted_n_neighbors[i][1] == 1:
+        if sorted_n_neighbors[i][1] <= 1:
             noise_index.append(i)
 
+    # print( noise_index )
     sorted_n_neighbors = np.delete(sorted_n_neighbors, noise_index, 0)
 
     for i in range(len(sorted_n_neighbors)):
         id = sorted_n_neighbors[i][0]
-        if not detectFunc.hasObjects_with_detectedArray(id):
-            labels[id] = -2
-            is_core[id] = False
-            for neighbor_ids in neighborhoods[id]:
-                neighborhoods[neighbor_ids]= np.setdiff1d(neighborhoods[neighbor_ids], [id])
+        if len(neighborhoods[id]) < minPts:
+             # labels[id] = -2
+             is_core[id] = False
+             continue
 
-                if 1 >= len(neighborhoods[neighbor_ids]):
-                    labels[neighbor_ids] = -2
-                    is_core[neighbor_ids] = False
-
-
-     #
-     # for i in range(len(sorted_n_neighbors)):
-     #     if ( )
-     #     node = sorted_neighborhoods[i]
-     #    if ( !detectFunc( node[0] ) )
-     #        {
-     #        // label[] node[0] ] =-2
-     #        for( neighbor in neighbors[node[0]] )
-     #            {
-     #              // remove node[0]
-     #              if (count( neighbors[neighbor] <1  ))
-     #                # label= -2
-     #            }
-     #
-     #    }
+        if detectFunc.hasObjects_with_detectedArray(id):
+            for neighbor_id in neighborhoods[id]:
+                if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
+                    removeNoise(neighbor_id, is_core, labels, neighborhoods, minPts, detectFunc)
+        else:
+            removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc)
 
     return detectFunc.detectedCount
+
+
+
+@logging_time
+def deepGraphFiltering_slow( is_core, neighborhoods, labels, n_neighbors, minPts, detectFunc):
+    ### ID 부여
+
+    isDetected = np.array(len(labels))  # 0: not yet,   1: detectFunc==true;   -1 detectFunc==false
+    # Create id array
+    sorted_n_neighbors = np.array(range(len(neighborhoods))).reshape(len(neighborhoods), -1)
+    # Merge id array and neighbor array
+    n_neighbors = np.reshape(n_neighbors, (len(n_neighbors), -1))
+    sorted_n_neighbors = np.hstack((sorted_n_neighbors, n_neighbors))
+    ### Sort by neighbors length
+    sorted_n_neighbors = np.array(sorted(sorted_n_neighbors, key=lambda neighbor: neighbor[1], reverse=True))
+
+    ### Delete point without neighbors.
+    noise_index = []
+    # print ( sorted_n_neighbors, len(sorted_n_neighbors))
+    for i in range(len(sorted_n_neighbors) - 1, 0, -1):
+        if sorted_n_neighbors[i][1] <= 1:
+            noise_index.append(i)
+
+    # print( noise_index )
+    sorted_n_neighbors = np.delete(sorted_n_neighbors, noise_index, 0)
+
+    for i in range(len(sorted_n_neighbors)):
+        # if minPts > sorted_n_neighbors[i][1]:
+        #     # 결과 틀림
+        #     break
+        #
+        id = sorted_n_neighbors[i][0]
+        #
+        # if len(neighborhoods[id]) <= 1:
+        #     labels[id] = -2
+        #     is_core[id] = False
+        #     break
+
+        if detectFunc.hasObjects_with_detectedArray(id):
+            for neighbor_id in neighborhoods[id]:
+                if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
+                    neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [neighbor_id])
+                    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [neighbor_id])
+                    labels[neighbor_id] = -2
+                    is_core[neighbor_id] = False
+
+        else:
+            labels[id] = -2
+            is_core[id] = False
+            for neighbor_id in neighborhoods[id]:
+                neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [id])
+
+    print(len(sorted_n_neighbors))
+    for i in range(1842, len(sorted_n_neighbors)):
+        print(sorted_n_neighbors[i])
+
+    return detectFunc.detectedCount
+
 
 @logging_time
 def deepGraphFiltering( is_core, neighborhoods, labels, minPts, detectFunc
@@ -372,43 +456,7 @@ def deepDetection(photoInfos, dc):
     return [ p for p in photoInfos if p[3]>=dc ]
 
 
-def removeNoise(nb_array, item):
-    # print('Remove item {}'.format(item))
 
-    """
-    TODO : 성능 문제 있음.
-    removeNoise ON
-    plain Number of clusters : 7, clusters items : 850
-    조건을 검사하는 개수 : 1842
-    WorkingTime[deepDBSCAN]: 49.4766526222229 sec
-
-    removeNoise OFF
-    plain Number of clusters : 7, clusters items : 837
-    조건을 검사하는 개수 : 1892
-    WorkingTime[deepDBSCAN]: 1.2882966995239258 sec
-    """
-    for i in range(len(nb_array)):
-        nb_array[i] = np.setdiff1d(nb_array[i], [item])
-
-def removeSortedNoise(nb_array, item):
-    # print('Remove item {}'.format(item))
-
-    """
-    TODO : 성능 문제 있음.
-    removeNoise ON
-    plain Number of clusters : 7, clusters items : 850
-    조건을 검사하는 개수 : 1842
-    WorkingTime[deepDBSCAN]: 49.4766526222229 sec
-
-    removeNoise OFF
-    plain Number of clusters : 7, clusters items : 837
-    조건을 검사하는 개수 : 1892
-    WorkingTime[deepDBSCAN]: 1.2882966995239258 sec
-    """
-    for i in range(len(nb_array)):
-        sn = nb_array[i]
-        sn[1] = np.setdiff1d(sn[1], [item])
-        nb_array[i] = sn
 
 @logging_time
 def deep_dbscan_inner(is_core, neighborhoods, labels,

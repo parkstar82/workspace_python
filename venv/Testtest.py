@@ -218,3 +218,20 @@ for i in range(10,0,-1):
 arr = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
 print(arr)
 print(np.delete(arr, [0,2], 0))
+
+if False or not True:
+    print('aaaaaaaaaaaaaaaaaaa')
+else:
+    print('bbbbbbbbbbbbbbbbbb')
+
+
+labels = [-1, -1, -1, -1, -1, -1, -1, -1, -1]
+
+def aa(labels):
+    labels[0] = -2
+    labels[1] = -2
+    labels[2] = -2
+
+print(labels)
+aa(labels)
+print(labels)
