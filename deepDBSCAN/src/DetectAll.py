@@ -387,7 +387,7 @@ def deepDetection(photoInfos, dc):
     return [ p for p in photoInfos if p[3]>=dc ]
 
 @logging_time
-def deepDBSCAN_SF(photoInfos=None, filePath=None):
+def deepDBSCAN_SF(photoInfos=None, filePath=None, dc=1):
     """
     Spatial First DBSCAN
     1. Spatial Selection
@@ -407,7 +407,6 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None):
     if None is filePath:
         filePath = r'C:\workspace_python\logs\result_deepDBSCAN_SF.csv'
 
-    dc = 1 # person_count > 0
     checkDcCount = len(photoInfos)
     detectedPhotoInfos = np.array(deepDetection(photoInfos, dc))
     # print('조건을 검사하는 개수 : {}'.format(checkDcCount))
@@ -442,7 +441,7 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None):
     ################
 
 @logging_time
-def deepDBSCAN_DP(photoInfos=None, filePath=None):
+def deepDBSCAN_DP(photoInfos=None, filePath=None, dc=1):
     """
     Spatial First DBSCAN
     1. Spatial Selection
@@ -497,7 +496,6 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None):
 
     # cluster detection
     # detect
-    dc = 1  # person_count > 0
     detectedCount = 0
     detected_num_clusters = 0
     detectedPhotoInfos = None
@@ -555,8 +553,83 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None):
     return detectedCount
     ################
 
+
 @logging_time
-def deepDBSCAN(photoInfos=None, filePath=None):
+def deepDBSCAN_DP_simple(photoInfos=None, filePath=None, dc=1):
+    """
+    Spatial First DBSCAN
+    1. Spatial Selection
+    2. Plain DBSCAN
+    3. Cluster detect
+    """
+    # #############################################################################
+    # Get Data
+    # define the number of kilometers in one radian
+    kms_per_radian = 6378.14
+
+    # load the data set
+    # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
+    if None is photoInfos:
+        photoInfos = spatialSelection()[0]
+
+    if None is filePath:
+        filePath = r'C:\workspace_python\logs\result_deepDBSCAN_DP.csv'
+
+    if DEBUG:
+        dc = 1  # person_count > 0
+        photoInfos = deepDetection(photoInfos, dc)
+
+    numpy_photoInfos = np.array(photoInfos)
+    coords = (numpy_photoInfos[:,4:]).astype(dtype='float32')
+    coords = np.reshape(coords , (-1,2))
+
+    # define epsilon as 1.5 kilometers, converted to radians for use by haversine
+    epsilon = F_EPSILON / kms_per_radian
+    #############################################################################
+    # Compute DBSCAN
+    # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
+    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
+    labels = db.labels_
+    num_clusters = len(set(labels))
+    clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
+    n_clusters, n_clusters_items = count_cluster_items(clusters)
+    # printClusterInfo(clusters)
+    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+    # result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
+
+    # 기존 photoInfos 에서 cluster에 속해 있는 것만 가져 오기.
+    cluster_photoInfos = []
+    for i in range(len(labels)):
+        if labels[i] >= 0:
+            cluster_photoInfos.append(photoInfos[i])
+
+    # 클러스터 아이템들 디텍트
+    detectedCount = len(cluster_photoInfos)
+    detectedPhotoInfos = np.array(deepDetection(cluster_photoInfos, dc))
+
+    if 0 < len(detectedPhotoInfos):
+        cluster_coords = (detectedPhotoInfos[:,4:]).astype(dtype='float32')
+        cluster_coords = np.reshape(cluster_coords , (-1,2))
+
+        #############################################################################
+        # Compute DBSCAN
+        cluster_db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(cluster_coords))
+        cluster_labels = cluster_db.labels_
+        cluster_num_clusters = len(set(cluster_labels))
+        cluster_clusters = pd.Series([cluster_coords[cluster_labels == n] for n in range(cluster_num_clusters)])
+        printClusterInfo(cluster_clusters)
+
+        cluster_result = np.append(pd.DataFrame(cluster_labels).to_numpy(), detectedPhotoInfos, axis=1)
+        temp_df = pd.DataFrame(cluster_result)
+        temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
+
+    return detectedCount
+    ################
+
+
+
+@logging_time
+def deepDBSCAN(photoInfos=None, filePath=None, dc=1):
     """
     Spatial First DBSCAN
     1. Spatial Selection
@@ -805,8 +878,11 @@ def randomSelectedExp():
 #########################################
 
 print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_SF()))
-print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_DP()))
+# print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_DP()))
+print('조건을 검사하는 개수 : {}'.format(deepDBSCAN_DP_simple()))
 print('조건을 검사하는 개수 : {}'.format(deepDBSCAN()))
+
+
 
 
 
