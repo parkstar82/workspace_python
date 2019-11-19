@@ -75,15 +75,15 @@ def readdata( datapath=None, data_limit=10*1000 ):
 def spatialSelectionFromDB(data_limit=10*1000):
     """ get photoInfos in JKF Airport from database  """
     sql = """   SELECT 
-                    user_id, 
-                    photo_id, 
-                    extract(epoch from gps_time) as gps_time, 
-                    lonlat[1] as lat, 
-                    lonlat[0] as long, 
-                    CONCAT(user_id, '_', photo_id, '.jpg') as file_path,
-                    FORMAT('person=%s', count_person) as objects
-                FROM photo_xy_with_gps_distance_order_from_centralpark
-                ORDER BY distance
+                    USER_ID, 
+                    PHOTO_ID, 
+                    EXTRACT(EPOCH FROM GPS_TIME) AS GPS_TIME, 
+                    LONLAT[1] AS LAT, 
+                    LONLAT[0] AS LONG, 
+                    CONCAT(USER_ID, '_', PHOTO_ID, '.JPG') AS FILE_PATH,
+                    FORMAT('PERSON=%S', COUNT_PERSON) AS OBJECTS
+                FROM PHOTO_XY_WITH_GPS_DISTANCE_ORDER_FROM_CENTRALPARK
+                ORDER BY DISTANCE
                 LIMIT {}
                 """.format(data_limit)
     conn = None
