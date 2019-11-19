@@ -187,7 +187,7 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
     recalc_core(core_samples, neighborhoods, min_samples)
 
     deep_dbscan_inner(core_samples, neighborhoods, labels, detectedArray, dc, min_samples)
-    print('deep_dbscan_inner_ori detectedCount : {}'.format(temp_detectedCount - detectedCount))
+    # print('deep_dbscan_inner_ori detectedCount : {}'.format(temp_detectedCount - detectedCount))
 
     return np.where(core_samples)[0], labels, detectedCount
 
