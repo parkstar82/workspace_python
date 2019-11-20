@@ -560,11 +560,6 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9):
     3. Cluster detect
     """
     # #############################################################################
-    # Get Data
-    # define the number of kilometers in one radian
-    kms_per_radian = 6378.14
-
-    # load the data set
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
     if None is photoInfos:
         photoInfos = spatialSelection()[0]
@@ -579,9 +574,6 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9):
     numpy_photoInfos = np.array(photoInfos)
     coords = (numpy_photoInfos[:,4:]).astype(dtype='float32')
     coords = np.reshape(coords , (-1,2))
-
-    # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    # epsilon = F_EPSILON / kms_per_radian
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
@@ -622,8 +614,6 @@ def deepDBSCAN_DP(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9):
             temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
 
     return detectedCount
-    ################
-
 
 
 @logging_time
@@ -653,15 +643,10 @@ def deepDBSCAN(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9):
 
     # detect engine and condition
     engine = Engine()
-    dc = 1  # person_count > 0
-    # detectedPhotoInfos = np.array(deepDetection(photoInfos, dc))
-    # print('Number of detect : {}'.format(len(detectedPhotoInfos)))
+
     numpy_photoInfos = np.array(photoInfos)
     coords = (numpy_photoInfos[:, 4:]).astype(dtype='float32')
     coords = np.reshape(coords, (-1, 2))
-
-    # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    # epsilon = F_EPSILON / kms_per_radian
 
     #############################################################################
     # Compute DBSCAN
@@ -687,9 +672,8 @@ def deepDBSCAN(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9):
 
 
 @logging_time
-def deepDBSCAN_DF_and_FD(photoInfos=None, filePath=None):
+def deepDBSCAN_DF_and_DDB(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9):
     """
-    TODO : 구현 중
     DBSCAN First and Fully DBSCAN
     1. Spatial Selection
     2. Plain DBSCAN
@@ -697,14 +681,9 @@ def deepDBSCAN_DF_and_FD(photoInfos=None, filePath=None):
     4. Fully DBSCAN by Plain DBSCAN result
     """
     # #############################################################################
-    # Get Data
-    # define the number of kilometers in one radian
-    kms_per_radian = 6378.14
-
-    # load the data set
     # user_id, photo_id, file_path, count_person, lonlat[0] as lon, lonlat[1] as lat
     if None is photoInfos:
-        photoInfos = spatialSelection()
+        photoInfos = spatialSelection()[0]
 
     if None is filePath:
         filePath = r'C:\workspace_python\logs\result_deepDBSCAN_DP.csv'
@@ -713,93 +692,52 @@ def deepDBSCAN_DF_and_FD(photoInfos=None, filePath=None):
         dc = 1  # person_count > 0
         photoInfos = deepDetection(photoInfos, dc)
 
+    # detect engine
+    # TODO : object_detector에서 가져오도록 수정
+    engine = Engine()
+
     numpy_photoInfos = np.array(photoInfos)
-    coords = (numpy_photoInfos[:,4:]).astype(dtype='float32')
-    coords = np.reshape(coords , (-1,2))
-    # print(np.reshape(coords , (-1,2))[:10])
-    # print(np.radians(coords)[:10])
-
-    # define epsilon as 1.5 kilometers, converted to radians for use by haversine
-    epsilon = F_EPSILON / kms_per_radian
-
+    coords = (numpy_photoInfos[:, 4:]).astype(dtype='float32')
+    coords = np.reshape(coords, (-1, 2))
     #############################################################################
     # Compute DBSCAN
     # db = DBSCAN(eps=epsilon, min_samples=5, algorithm='ball_tree', metric='haversine').fit(np.radians(coords))#, ori_X=df)
-    db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
+    db = DBSCAN(eps=epsilon, min_samples=minpts, algorithm='ball_tree').fit(np.radians(coords))
     labels = db.labels_
     num_clusters = len(set(labels))
     clusters = pd.Series([coords[labels == n] for n in range(num_clusters)])
-    n_clusters, n_clusters_items = count_cluster_items(clusters)
-    print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
-    result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
+    # n_clusters, n_clusters_items = count_cluster_items(clusters)
+    # printClusterInfo(clusters)
+    # print('plain Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+    # result = np.append(pd.DataFrame(labels).to_numpy(), photoInfos, axis=1)
 
-    dic_result = {}
-    for i in range(len(result)):
-        key = result[i][0]
-        if key in dic_result:
-            dic_result[key].append(photoInfos[i])
-        else:
-            dic_result[key] = [photoInfos[i]]
+    # 기존 photoInfos 에서 cluster에 속해 있는 것만 가져 오기.
+    cluster_photoInfos = []
+    for i in range(len(labels)):
+        if labels[i] >= 0:
+            cluster_photoInfos.append(photoInfos[i])
 
-    # cluster detection
-    # detect
-    dc = 1  # person_count > 0
     detectedCount = 0
-    detected_num_clusters = 0
-    detectedPhotoInfos = None
-    last_cluster_id = 0
-    for key in dic_result.keys():
-        # print('key:{}, length:{}'.format(key, len(dic_result[key])))
-        if key != '-1':
-            detectedResult = deepDetection(dic_result[key], dc)
-            detectedCount += len(dic_result[key])
-            # print('cluster dc item count : {}'.format(len(detectedResult)))
-            if 0 == len(detectedResult):
-                continue
+    if 0 < len(cluster_photoInfos):
+        cluster_coords = (np.array(cluster_photoInfos)[:, 4:]).astype(dtype='float32')
+        cluster_coords = np.reshape(cluster_coords, (-1, 2))
 
-            numpy_detectedResult = np.array(detectedResult)
-            # plain dbscan some cluster
-            coords = (numpy_detectedResult[:, 4:]).astype(dtype='float32')
-            coords = np.reshape(coords, (-1, 2))
-            db = DBSCAN(eps=epsilon, min_samples=MIN_PTS, algorithm='ball_tree').fit(np.radians(coords))
-            labels = db.labels_
-            num_clusters = len(set(labels))
-            clusters = pd.Series([coords[labels == n] for n in range(0, num_clusters)])
-            n_clusters, n_clusters_items = count_cluster_items(clusters)
-            # print('Number of clusters : {}, clusters items : {}'.format(n_clusters, n_clusters_items))
+        cluster_db, detectedCount = DeepDBSCAN(eps=epsilon, min_samples=minpts, algorithm='ball_tree').fit(
+            np.radians(cluster_coords), ori_X=cluster_photoInfos, deepEngine=engine, dc=dc)
+        if IS_TO_FILE:
+            cluster_labels = cluster_db.labels_
+            cluster_labels_set = set(cluster_labels)
+            cluster_num_clusters = len(cluster_labels_set)
+            cluster_clusters = pd.Series([cluster_coords[cluster_labels == n] for n in range(0, cluster_num_clusters)])
 
-            detected_num_clusters += n_clusters
-            # print('Number of clusters: {}'.format(num_clusters))
-            new_labels = []
-            for i in labels:
-                if i >= 0:
-                    new_labels.append(i+last_cluster_id)
-                else:
-                    new_labels.append(i)
+            printClusterInfo(cluster_clusters)
+            cluster_result = np.append(pd.DataFrame(cluster_labels).to_numpy(), cluster_photoInfos, axis=1)
+            cluster_temp_df = pd.DataFrame(cluster_result)
+            cluster_temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
 
-            if max(labels) >= 0:
-                last_cluster_id = last_cluster_id + (max(labels)+1)
+            print('조건을 검사하는 개수 : {}'.format(detectedCount))
 
-            resultPhotoInfos = np.append(pd.DataFrame(np.array(new_labels)).to_numpy(), detectedResult, axis=1)
-            if detectedPhotoInfos is None:
-                detectedPhotoInfos = resultPhotoInfos
-            else:
-                detectedPhotoInfos = np.append(detectedPhotoInfos, resultPhotoInfos, axis=0)
-
-
-    # Noise 숫자 세기
-    # if not None is detectedPhotoInfos:
-    #     noise = np.count_nonzero(detectedPhotoInfos[:,0] == '-1')
-    #     print('noise : {}'.format(noise))
-    #     print('조건을 검사하는 개수 : {}'.format(detectedCount))
-    #     print('detected_num_clusters : {}'.format(detected_num_clusters))
-    #     print('detectedPhotoInfos length : {}'.format(len(detectedPhotoInfos) - noise))
-    #     print('last_cluster_id : {}'.format(last_cluster_id))
-
-        # temp_df = pd.DataFrame(detectedPhotoInfos)
-        # temp_df.to_csv(filePath, index=False, header=False, encoding='utf-8')
     return detectedCount
-    ################
 
 ##########################################
 @logging_time
@@ -947,13 +885,13 @@ def centralparkExpAll(aptime=1.5):
     """
     k = 1000
     kms_per_radian = 6378.14
-    list_data_limit = [10*k, 20*k, 30*k, 40*k, 50*k]
-    list_epsilon  = [0.1, 0.2, 0.3, 0.4, 0.5]
-    list_minpts = [9, 12, 15, 18, 21]
+    # list_data_limit = [10*k, 20*k, 30*k, 40*k, 50*k]
+    # list_epsilon  = [0.1, 0.2, 0.3, 0.4, 0.5]
+    # list_minpts = [9, 12, 15, 18, 21]
 
-    # list_data_limit = [10*k, 20*k]
-    # list_epsilon = [0.1, 0.2]
-    # list_minpts = [9,12]
+    list_data_limit = [30*k, 40*k]
+    list_epsilon = [0.1, 0.5]
+    list_minpts = [9, 21]
 
     result_limit_sf = []
     result_limit_df = []
@@ -1009,7 +947,7 @@ def centralparkExpAll(aptime=1.5):
                 print('========================= DDB {}_{:<3.0f}_{} ========================='.format(
                     data_limit, epsilon * 1000, minpts))
                 start_time = time.time()
-                count_ddb = deepDBSCAN(photoInfos, filePath_DEEP, 1, _epsilon, minpts)
+                count_ddb = deepDBSCAN_DF_and_DDB(photoInfos, filePath_DEEP, 1, _epsilon, minpts)
                 end_time = time.time()
                 ddb_time = end_time - start_time
                 print('DDB DETECTED COUNT : {} '.format(count_ddb))
@@ -1067,9 +1005,7 @@ def e_k_result_to_file(r_limit_sf, r_limit_df, r_limit_ddb,
     for limit in list_data_limit:
         result_row_name.append('{:<2.0f}k'.format(limit/1000))
     result_row_name = np.reshape(np.asarray(result_row_name), (len(result_row_name), -1))
-
     result_column_name = ['limit', 'SF', 'DF', 'DDB']
-
 
     for e in range(len(list_epsilon)):
         for k in range(len(list_minpts)):
@@ -1107,9 +1043,9 @@ def a_l_result_to_file(result_sf, result_df, result_ddb,
     result_row_name = np.reshape(np.asarray(result_row_name), (len(result_row_name), -1))
     result_column_name = np.append(['epsilon'], list_minpts)
 
-    sf_filepath = r'C:\workspace_python\logs\newalgo\{}_SF.csv'.format(data_limit)
-    df_filepath = r'C:\workspace_python\logs\newalgo\{}_DF.csv'.format(data_limit)
-    ddb_filepath = r'C:\workspace_python\logs\newalgo\{}_DDB.csv'.format(data_limit)
+    sf_filepath = r'C:\workspace_python\logs\newalgo\a_l_result_{}_SF.csv'.format(data_limit)
+    df_filepath = r'C:\workspace_python\logs\newalgo\a_l_result_{}_DF.csv'.format(data_limit)
+    ddb_filepath = r'C:\workspace_python\logs\newalgo\a_l_result_{}_DDB.csv'.format(data_limit)
 
     result_sf = np.reshape(np.asarray(result_sf), (len(result_sf), -1))
     result_sf = np.hstack((result_row_name, result_sf))
