@@ -1,0 +1,1402 @@
+C:\Python36\python.exe C:/workspace_python/deepDBSCAN/src/DetectAll.py
+Connecting to the PostgreSQL database...
+Spatial selection length : 10000
+WorkingTime[spatialSelection]: 0.2528419494628906 sec
+========================= SF 10000_100_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.08504867553710938 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_100_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.21518945693969727 sec
+DF DETECTED COUNT : 7109 
+========================= DDB 10000_100_9 =========================
+Using TensorFlow backend.
+WorkingTime[deep_dbscan_inner]: 0.3757333755493164 sec
+WorkingTime[deepDBSCAN]: 11.160055875778198 sec
+DDB DETECTED COUNT : 6942 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.085s	DF : 10663.715s	DDF : 10424.160s] ==========
+========================= SF 10000_100_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06193399429321289 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_100_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.16112303733825684 sec
+DF DETECTED COUNT : 6685 
+========================= DDB 10000_100_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.3678262233734131 sec
+WorkingTime[deepDBSCAN]: 10.047042608261108 sec
+DDB DETECTED COUNT : 6456 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.062s	DF : 10027.661s	DDF : 9694.047s] ==========
+========================= SF 10000_100_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06433606147766113 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_100_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.16252970695495605 sec
+DF DETECTED COUNT : 6316 
+========================= DDB 10000_100_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.34388041496276855 sec
+WorkingTime[deepDBSCAN]: 10.281704187393188 sec
+DDB DETECTED COUNT : 6121 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.064s	DF : 9474.163s	DDF : 9191.782s] ==========
+========================= SF 10000_100_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.05805611610412598 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_100_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.1551363468170166 sec
+DF DETECTED COUNT : 6031 
+========================= DDB 10000_100_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.3630354404449463 sec
+WorkingTime[deepDBSCAN]: 9.401412963867188 sec
+DDB DETECTED COUNT : 5774 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.058s	DF : 9046.655s	DDF : 8670.401s] ==========
+========================= SF 10000_100_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.0631403923034668 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_100_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.1689143180847168 sec
+DF DETECTED COUNT : 5521 
+========================= DDB 10000_100_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.377255916595459 sec
+WorkingTime[deepDBSCAN]: 9.771457433700562 sec
+DDB DETECTED COUNT : 5310 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.063s	DF : 8281.669s	DDF : 7974.771s] ==========
+========================= SF 10000_200_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06549596786499023 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_200_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.1869645118713379 sec
+DF DETECTED COUNT : 8096 
+========================= DDB 10000_200_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.4845867156982422 sec
+WorkingTime[deepDBSCAN]: 16.54865598678589 sec
+DDB DETECTED COUNT : 7958 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.065s	DF : 12144.187s	DDF : 11953.549s] ==========
+========================= SF 10000_200_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06099843978881836 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_200_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.16915082931518555 sec
+DF DETECTED COUNT : 7703 
+========================= DDB 10000_200_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.44506239891052246 sec
+WorkingTime[deepDBSCAN]: 16.049529314041138 sec
+DDB DETECTED COUNT : 7578 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.061s	DF : 11554.669s	DDF : 11383.050s] ==========
+========================= SF 10000_200_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.059998512268066406 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_200_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.16611671447753906 sec
+DF DETECTED COUNT : 7452 
+========================= DDB 10000_200_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.5504820346832275 sec
+WorkingTime[deepDBSCAN]: 15.937577724456787 sec
+DDB DETECTED COUNT : 7323 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.060s	DF : 11178.166s	DDF : 11000.438s] ==========
+========================= SF 10000_200_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06108260154724121 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_200_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.20833325386047363 sec
+DF DETECTED COUNT : 7177 
+========================= DDB 10000_200_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.4683346748352051 sec
+WorkingTime[deepDBSCAN]: 15.538057088851929 sec
+DDB DETECTED COUNT : 7085 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.061s	DF : 10765.708s	DDF : 10643.038s] ==========
+========================= SF 10000_200_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06347846984863281 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_200_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.168365478515625 sec
+DF DETECTED COUNT : 6951 
+========================= DDB 10000_200_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.4188547134399414 sec
+WorkingTime[deepDBSCAN]: 15.192915678024292 sec
+DDB DETECTED COUNT : 6850 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.063s	DF : 10426.668s	DDF : 10290.193s] ==========
+========================= SF 10000_300_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06299853324890137 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_300_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18346190452575684 sec
+DF DETECTED COUNT : 8686 
+========================= DDB 10000_300_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.5690476894378662 sec
+WorkingTime[deepDBSCAN]: 23.013556480407715 sec
+DDB DETECTED COUNT : 8487 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.064s	DF : 13029.183s	DDF : 12753.514s] ==========
+========================= SF 10000_300_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.07000017166137695 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_300_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.1957993507385254 sec
+DF DETECTED COUNT : 8374 
+========================= DDB 10000_300_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.5215182304382324 sec
+WorkingTime[deepDBSCAN]: 22.227800130844116 sec
+DDB DETECTED COUNT : 8259 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.070s	DF : 12561.196s	DDF : 12410.728s] ==========
+========================= SF 10000_300_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06254816055297852 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_300_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.1833038330078125 sec
+DF DETECTED COUNT : 8061 
+========================= DDB 10000_300_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.589961051940918 sec
+WorkingTime[deepDBSCAN]: 21.885815620422363 sec
+DDB DETECTED COUNT : 7938 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.063s	DF : 12091.683s	DDF : 11928.886s] ==========
+========================= SF 10000_300_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06394696235656738 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_300_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18740224838256836 sec
+DF DETECTED COUNT : 7818 
+========================= DDB 10000_300_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.5115766525268555 sec
+WorkingTime[deepDBSCAN]: 21.87510108947754 sec
+DDB DETECTED COUNT : 7633 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.064s	DF : 11727.187s	DDF : 11471.375s] ==========
+========================= SF 10000_300_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06114530563354492 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_300_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18011093139648438 sec
+DF DETECTED COUNT : 7534 
+========================= DDB 10000_300_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.5416269302368164 sec
+WorkingTime[deepDBSCAN]: 21.49120283126831 sec
+DDB DETECTED COUNT : 7450 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.061s	DF : 11301.180s	DDF : 11196.491s] ==========
+========================= SF 10000_400_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06608104705810547 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_400_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.23497605323791504 sec
+DF DETECTED COUNT : 9117 
+========================= DDB 10000_400_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.6368715763092041 sec
+WorkingTime[deepDBSCAN]: 29.510828971862793 sec
+DDB DETECTED COUNT : 8978 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.066s	DF : 13675.735s	DDF : 13496.511s] ==========
+========================= SF 10000_400_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.0637960433959961 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_400_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18755030632019043 sec
+DF DETECTED COUNT : 8901 
+========================= DDB 10000_400_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.8321731090545654 sec
+WorkingTime[deepDBSCAN]: 29.51071572303772 sec
+DDB DETECTED COUNT : 8746 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.064s	DF : 13351.688s	DDF : 13148.511s] ==========
+========================= SF 10000_400_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.07399845123291016 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_400_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.24288582801818848 sec
+DF DETECTED COUNT : 8593 
+========================= DDB 10000_400_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.62101149559021 sec
+WorkingTime[deepDBSCAN]: 30.64290738105774 sec
+DDB DETECTED COUNT : 8455 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.074s	DF : 12889.743s	DDF : 12713.143s] ==========
+========================= SF 10000_400_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06325745582580566 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_400_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18164801597595215 sec
+DF DETECTED COUNT : 8347 
+========================= DDB 10000_400_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.6174449920654297 sec
+WorkingTime[deepDBSCAN]: 28.740653038024902 sec
+DDB DETECTED COUNT : 8229 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.063s	DF : 12520.682s	DDF : 12372.241s] ==========
+========================= SF 10000_400_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06374740600585938 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_400_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18340849876403809 sec
+DF DETECTED COUNT : 8093 
+========================= DDB 10000_400_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.6401560306549072 sec
+WorkingTime[deepDBSCAN]: 28.73794651031494 sec
+DDB DETECTED COUNT : 7969 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.064s	DF : 12139.683s	DDF : 11982.238s] ==========
+========================= SF 10000_500_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06499433517456055 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_500_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.2063283920288086 sec
+DF DETECTED COUNT : 9345 
+========================= DDB 10000_500_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.6795599460601807 sec
+WorkingTime[deepDBSCAN]: 34.34164333343506 sec
+DDB DETECTED COUNT : 9229 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.065s	DF : 14017.706s	DDF : 13877.842s] ==========
+========================= SF 10000_500_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06530570983886719 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_500_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.19731855392456055 sec
+DF DETECTED COUNT : 9146 
+========================= DDB 10000_500_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.7076301574707031 sec
+WorkingTime[deepDBSCAN]: 35.328763484954834 sec
+DDB DETECTED COUNT : 9027 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.065s	DF : 13719.197s	DDF : 13575.829s] ==========
+========================= SF 10000_500_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.11599612236022949 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_500_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.19804883003234863 sec
+DF DETECTED COUNT : 8931 
+========================= DDB 10000_500_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.7431213855743408 sec
+WorkingTime[deepDBSCAN]: 33.523937702178955 sec
+DDB DETECTED COUNT : 8770 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.116s	DF : 13396.698s	DDF : 13188.524s] ==========
+========================= SF 10000_500_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.06691718101501465 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_500_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.18802571296691895 sec
+DF DETECTED COUNT : 8776 
+========================= DDB 10000_500_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.6973855495452881 sec
+WorkingTime[deepDBSCAN]: 33.60966753959656 sec
+DDB DETECTED COUNT : 8686 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.067s	DF : 13164.188s	DDF : 13062.610s] ==========
+========================= SF 10000_500_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.07601237297058105 sec
+SF DETECTED COUNT : 10000 
+========================= DF 10000_500_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.20110368728637695 sec
+DF DETECTED COUNT : 8552 
+========================= DDB 10000_500_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.720090389251709 sec
+WorkingTime[deepDBSCAN]: 33.29859399795532 sec
+DDB DETECTED COUNT : 8409 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 15000.076s	DF : 12828.201s	DDF : 12646.799s] ==========
+WorkingTime[a_l_result_to_file]: 0.010078191757202148 sec
+Connecting to the PostgreSQL database...
+Spatial selection length : 20000
+WorkingTime[spatialSelection]: 0.3025228977203369 sec
+========================= SF 20000_100_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.1161043643951416 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_100_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.372326135635376 sec
+DF DETECTED COUNT : 13719 
+========================= DDB 20000_100_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.6643447875976562 sec
+WorkingTime[deepDBSCAN]: 15.917504072189331 sec
+DDB DETECTED COUNT : 13409 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.116s	DF : 20578.872s	DDF : 20129.418s] ==========
+========================= SF 20000_100_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.1201181411743164 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_100_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3378005027770996 sec
+DF DETECTED COUNT : 12764 
+========================= DDB 20000_100_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.6475610733032227 sec
+WorkingTime[deepDBSCAN]: 15.519862413406372 sec
+DDB DETECTED COUNT : 12448 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.120s	DF : 19146.338s	DDF : 18687.520s] ==========
+========================= SF 20000_100_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.1138153076171875 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_100_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.31871914863586426 sec
+DF DETECTED COUNT : 12076 
+========================= DDB 20000_100_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.9056708812713623 sec
+WorkingTime[deepDBSCAN]: 16.032939195632935 sec
+DDB DETECTED COUNT : 11723 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.114s	DF : 18114.319s	DDF : 17600.533s] ==========
+========================= SF 20000_100_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.15931129455566406 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_100_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3566470146179199 sec
+DF DETECTED COUNT : 11461 
+========================= DDB 20000_100_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.6279916763305664 sec
+WorkingTime[deepDBSCAN]: 17.062431573867798 sec
+DDB DETECTED COUNT : 11035 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.160s	DF : 17191.857s	DDF : 16569.562s] ==========
+========================= SF 20000_100_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12031865119934082 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_100_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.33868908882141113 sec
+DF DETECTED COUNT : 10580 
+========================= DDB 20000_100_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.6108663082122803 sec
+WorkingTime[deepDBSCAN]: 14.646424293518066 sec
+DDB DETECTED COUNT : 10299 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.120s	DF : 15870.339s	DDF : 15463.146s] ==========
+========================= SF 20000_200_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12499618530273438 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_200_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3599824905395508 sec
+DF DETECTED COUNT : 15715 
+========================= DDB 20000_200_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.8824100494384766 sec
+WorkingTime[deepDBSCAN]: 26.264920234680176 sec
+DDB DETECTED COUNT : 15333 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.125s	DF : 23572.860s	DDF : 23025.765s] ==========
+========================= SF 20000_200_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12611651420593262 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_200_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3441896438598633 sec
+DF DETECTED COUNT : 14789 
+========================= DDB 20000_200_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.8591511249542236 sec
+WorkingTime[deepDBSCAN]: 26.60531759262085 sec
+DDB DETECTED COUNT : 14522 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.126s	DF : 22183.844s	DDF : 21809.606s] ==========
+========================= SF 20000_200_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12699437141418457 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_200_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.38205957412719727 sec
+DF DETECTED COUNT : 14213 
+========================= DDB 20000_200_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.8207249641418457 sec
+WorkingTime[deepDBSCAN]: 26.475392818450928 sec
+DDB DETECTED COUNT : 13924 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.127s	DF : 21319.882s	DDF : 20912.476s] ==========
+========================= SF 20000_200_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12528371810913086 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_200_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.32703256607055664 sec
+DF DETECTED COUNT : 13580 
+========================= DDB 20000_200_18 =========================
+WorkingTime[deep_dbscan_inner]: 0.8655202388763428 sec
+WorkingTime[deepDBSCAN]: 26.39077925682068 sec
+DDB DETECTED COUNT : 13346 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.125s	DF : 20370.327s	DDF : 20045.391s] ==========
+========================= SF 20000_200_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12399625778198242 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_200_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3349902629852295 sec
+DF DETECTED COUNT : 13001 
+========================= DDB 20000_200_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.7528402805328369 sec
+WorkingTime[deepDBSCAN]: 25.600337028503418 sec
+DDB DETECTED COUNT : 12837 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.124s	DF : 19501.835s	DDF : 19281.100s] ==========
+========================= SF 20000_300_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.13290047645568848 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_300_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.38424134254455566 sec
+DF DETECTED COUNT : 16851 
+========================= DDB 20000_300_9 =========================
+WorkingTime[deep_dbscan_inner]: 0.9979612827301025 sec
+WorkingTime[deepDBSCAN]: 36.65315842628479 sec
+DDB DETECTED COUNT : 16493 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.133s	DF : 25276.884s	DDF : 24776.153s] ==========
+========================= SF 20000_300_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.17899656295776367 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_300_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.36798763275146484 sec
+DF DETECTED COUNT : 16063 
+========================= DDB 20000_300_12 =========================
+WorkingTime[deep_dbscan_inner]: 0.9837627410888672 sec
+WorkingTime[deepDBSCAN]: 36.51317358016968 sec
+DDB DETECTED COUNT : 15806 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.179s	DF : 24094.868s	DDF : 23745.513s] ==========
+========================= SF 20000_300_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.13031768798828125 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_300_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3459179401397705 sec
+DF DETECTED COUNT : 15436 
+========================= DDB 20000_300_15 =========================
+WorkingTime[deep_dbscan_inner]: 0.9824056625366211 sec
+WorkingTime[deepDBSCAN]: 36.28535771369934 sec
+DDB DETECTED COUNT : 15142 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.130s	DF : 23154.346s	DDF : 22749.285s] ==========
+========================= SF 20000_300_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.1250154972076416 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_300_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.34705018997192383 sec
+DF DETECTED COUNT : 14892 
+========================= DDB 20000_300_18 =========================
+WorkingTime[deep_dbscan_inner]: 1.444410800933838 sec
+WorkingTime[deepDBSCAN]: 36.981651067733765 sec
+DDB DETECTED COUNT : 14554 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.125s	DF : 22338.347s	DDF : 21867.982s] ==========
+========================= SF 20000_300_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.14308595657348633 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_300_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.5117080211639404 sec
+DF DETECTED COUNT : 14317 
+========================= DDB 20000_300_21 =========================
+WorkingTime[deep_dbscan_inner]: 0.885204553604126 sec
+WorkingTime[deepDBSCAN]: 35.6445677280426 sec
+DDB DETECTED COUNT : 14108 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.143s	DF : 21476.012s	DDF : 21197.645s] ==========
+========================= SF 20000_400_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12803387641906738 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_400_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.38866209983825684 sec
+DF DETECTED COUNT : 17627 
+========================= DDB 20000_400_9 =========================
+WorkingTime[deep_dbscan_inner]: 1.1414413452148438 sec
+WorkingTime[deepDBSCAN]: 46.078134298324585 sec
+DDB DETECTED COUNT : 17329 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.128s	DF : 26440.889s	DDF : 26039.578s] ==========
+========================= SF 20000_400_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12999629974365234 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_400_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.37964677810668945 sec
+DF DETECTED COUNT : 16992 
+========================= DDB 20000_400_12 =========================
+WorkingTime[deep_dbscan_inner]: 1.1258940696716309 sec
+WorkingTime[deepDBSCAN]: 45.7463002204895 sec
+DDB DETECTED COUNT : 16675 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.130s	DF : 25488.380s	DDF : 25058.246s] ==========
+========================= SF 20000_400_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.18999409675598145 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_400_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.4055616855621338 sec
+DF DETECTED COUNT : 16387 
+========================= DDB 20000_400_15 =========================
+WorkingTime[deep_dbscan_inner]: 1.1684718132019043 sec
+WorkingTime[deepDBSCAN]: 45.47432780265808 sec
+DDB DETECTED COUNT : 16107 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.190s	DF : 24580.906s	DDF : 24205.974s] ==========
+========================= SF 20000_400_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.13495182991027832 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_400_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3656435012817383 sec
+DF DETECTED COUNT : 15852 
+========================= DDB 20000_400_18 =========================
+WorkingTime[deep_dbscan_inner]: 1.1366493701934814 sec
+WorkingTime[deepDBSCAN]: 45.42661786079407 sec
+DDB DETECTED COUNT : 15624 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.135s	DF : 23778.367s	DDF : 23481.427s] ==========
+========================= SF 20000_400_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12402105331420898 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_400_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.36078739166259766 sec
+DF DETECTED COUNT : 15380 
+========================= DDB 20000_400_21 =========================
+WorkingTime[deep_dbscan_inner]: 1.064162254333496 sec
+WorkingTime[deepDBSCAN]: 44.59840106964111 sec
+DDB DETECTED COUNT : 15151 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.124s	DF : 23070.361s	DDF : 22771.098s] ==========
+========================= SF 20000_500_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.17710304260253906 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_500_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.39025449752807617 sec
+DF DETECTED COUNT : 18160 
+========================= DDB 20000_500_9 =========================
+WorkingTime[deep_dbscan_inner]: 1.2475409507751465 sec
+WorkingTime[deepDBSCAN]: 58.13128161430359 sec
+DDB DETECTED COUNT : 17887 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.177s	DF : 27240.390s	DDF : 26888.631s] ==========
+========================= SF 20000_500_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.1309962272644043 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_500_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.3930034637451172 sec
+DF DETECTED COUNT : 17573 
+========================= DDB 20000_500_12 =========================
+WorkingTime[deep_dbscan_inner]: 1.2775413990020752 sec
+WorkingTime[deepDBSCAN]: 59.687167167663574 sec
+DDB DETECTED COUNT : 17287 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.131s	DF : 26359.893s	DDF : 25990.188s] ==========
+========================= SF 20000_500_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.1317601203918457 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_500_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.41828107833862305 sec
+DF DETECTED COUNT : 17098 
+========================= DDB 20000_500_15 =========================
+WorkingTime[deep_dbscan_inner]: 1.2180426120758057 sec
+WorkingTime[deepDBSCAN]: 54.93067955970764 sec
+DDB DETECTED COUNT : 16792 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.132s	DF : 25647.418s	DDF : 25242.931s] ==========
+========================= SF 20000_500_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.12839126586914062 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_500_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.36502623558044434 sec
+DF DETECTED COUNT : 16646 
+========================= DDB 20000_500_18 =========================
+WorkingTime[deep_dbscan_inner]: 1.2471816539764404 sec
+WorkingTime[deepDBSCAN]: 54.76945209503174 sec
+DDB DETECTED COUNT : 16387 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.128s	DF : 24969.365s	DDF : 24635.270s] ==========
+========================= SF 20000_500_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.13100028038024902 sec
+SF DETECTED COUNT : 20000 
+========================= DF 20000_500_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.38397955894470215 sec
+DF DETECTED COUNT : 16198 
+========================= DDB 20000_500_21 =========================
+WorkingTime[deep_dbscan_inner]: 1.2034587860107422 sec
+WorkingTime[deepDBSCAN]: 54.32331371307373 sec
+DDB DETECTED COUNT : 15951 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 30000.131s	DF : 24297.384s	DDF : 23980.823s] ==========
+WorkingTime[a_l_result_to_file]: 0.009010553359985352 sec
+Connecting to the PostgreSQL database...
+Spatial selection length : 30000
+WorkingTime[spatialSelection]: 0.3730738162994385 sec
+========================= SF 30000_100_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2636563777923584 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_100_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.764617919921875 sec
+DF DETECTED COUNT : 21583 
+========================= DDB 30000_100_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.088634490966797 sec
+WorkingTime[deepDBSCAN]: 419.1380672454834 sec
+DDB DETECTED COUNT : 21135 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.264s	DF : 32375.265s	DDF : 32121.639s] ==========
+========================= SF 30000_100_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2701404094696045 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_100_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7695071697235107 sec
+DF DETECTED COUNT : 20299 
+========================= DDB 30000_100_12 =========================
+WorkingTime[deep_dbscan_inner]: 5.968778133392334 sec
+WorkingTime[deepDBSCAN]: 419.8352267742157 sec
+DDB DETECTED COUNT : 19892 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.270s	DF : 30449.270s	DDF : 30257.835s] ==========
+========================= SF 30000_100_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2699563503265381 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_100_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7079629898071289 sec
+DF DETECTED COUNT : 19356 
+========================= DDB 30000_100_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.262175559997559 sec
+WorkingTime[deepDBSCAN]: 421.46185755729675 sec
+DDB DETECTED COUNT : 18954 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.270s	DF : 29034.708s	DDF : 28852.462s] ==========
+========================= SF 30000_100_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2602708339691162 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_100_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7271871566772461 sec
+DF DETECTED COUNT : 18568 
+========================= DDB 30000_100_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.334526777267456 sec
+WorkingTime[deepDBSCAN]: 427.17800736427307 sec
+DDB DETECTED COUNT : 18097 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.260s	DF : 27852.727s	DDF : 27572.678s] ==========
+========================= SF 30000_100_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.26904869079589844 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_100_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7651638984680176 sec
+DF DETECTED COUNT : 17518 
+========================= DDB 30000_100_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.0495405197143555 sec
+WorkingTime[deepDBSCAN]: 434.7260036468506 sec
+DDB DETECTED COUNT : 17164 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.269s	DF : 26277.765s	DDF : 26180.726s] ==========
+========================= SF 30000_200_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2770521640777588 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_200_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8012566566467285 sec
+DF DETECTED COUNT : 24050 
+========================= DDB 30000_200_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.001211404800415 sec
+WorkingTime[deepDBSCAN]: 337.65765619277954 sec
+DDB DETECTED COUNT : 23563 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.277s	DF : 36075.801s	DDF : 35682.158s] ==========
+========================= SF 30000_200_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2725400924682617 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_200_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8034377098083496 sec
+DF DETECTED COUNT : 22898 
+========================= DDB 30000_200_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.127599477767944 sec
+WorkingTime[deepDBSCAN]: 335.35467171669006 sec
+DDB DETECTED COUNT : 22541 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.273s	DF : 34347.803s	DDF : 34146.855s] ==========
+========================= SF 30000_200_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.26699399948120117 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_200_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7674567699432373 sec
+DF DETECTED COUNT : 22038 
+========================= DDB 30000_200_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.254676818847656 sec
+WorkingTime[deepDBSCAN]: 330.57288551330566 sec
+DDB DETECTED COUNT : 21677 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.267s	DF : 33057.767s	DDF : 32846.073s] ==========
+========================= SF 30000_200_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2772998809814453 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_200_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8037500381469727 sec
+DF DETECTED COUNT : 21206 
+========================= DDB 30000_200_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.198800325393677 sec
+WorkingTime[deepDBSCAN]: 335.65305948257446 sec
+DDB DETECTED COUNT : 20934 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.277s	DF : 31809.804s	DDF : 31736.653s] ==========
+========================= SF 30000_200_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3009946346282959 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_200_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7400786876678467 sec
+DF DETECTED COUNT : 20422 
+========================= DDB 30000_200_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.071024417877197 sec
+WorkingTime[deepDBSCAN]: 338.34289717674255 sec
+DDB DETECTED COUNT : 20216 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.301s	DF : 30633.740s	DDF : 30662.343s] ==========
+========================= SF 30000_300_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2689950466156006 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_300_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.817011833190918 sec
+DF DETECTED COUNT : 25496 
+========================= DDB 30000_300_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.310257911682129 sec
+WorkingTime[deepDBSCAN]: 350.1502044200897 sec
+DDB DETECTED COUNT : 25010 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.269s	DF : 38244.817s	DDF : 37865.150s] ==========
+========================= SF 30000_300_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.27617931365966797 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_300_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7944457530975342 sec
+DF DETECTED COUNT : 24445 
+========================= DDB 30000_300_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.6507568359375 sec
+WorkingTime[deepDBSCAN]: 352.5880014896393 sec
+DDB DETECTED COUNT : 24086 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.276s	DF : 36668.294s	DDF : 36481.588s] ==========
+========================= SF 30000_300_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2936725616455078 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_300_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8571548461914062 sec
+DF DETECTED COUNT : 23573 
+========================= DDB 30000_300_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.536556243896484 sec
+WorkingTime[deepDBSCAN]: 351.1592240333557 sec
+DDB DETECTED COUNT : 23252 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.294s	DF : 35360.357s	DDF : 35229.159s] ==========
+========================= SF 30000_300_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.27300572395324707 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_300_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7510759830474854 sec
+DF DETECTED COUNT : 22836 
+========================= DDB 30000_300_18 =========================
+WorkingTime[deep_dbscan_inner]: 5.471840858459473 sec
+WorkingTime[deepDBSCAN]: 326.79246950149536 sec
+DDB DETECTED COUNT : 22443 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.273s	DF : 34254.751s	DDF : 33991.292s] ==========
+========================= SF 30000_300_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.24399733543395996 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_300_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7399744987487793 sec
+DF DETECTED COUNT : 22093 
+========================= DDB 30000_300_21 =========================
+WorkingTime[deep_dbscan_inner]: 5.383517742156982 sec
+WorkingTime[deepDBSCAN]: 310.6877887248993 sec
+DDB DETECTED COUNT : 21817 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.244s	DF : 33140.240s	DDF : 33036.188s] ==========
+========================= SF 30000_400_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2540099620819092 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_400_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7530612945556641 sec
+DF DETECTED COUNT : 26545 
+========================= DDB 30000_400_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.431456565856934 sec
+WorkingTime[deepDBSCAN]: 327.5242645740509 sec
+DDB DETECTED COUNT : 26130 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.254s	DF : 39818.253s	DDF : 39522.524s] ==========
+========================= SF 30000_400_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.25200939178466797 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_400_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7700316905975342 sec
+DF DETECTED COUNT : 25681 
+========================= DDB 30000_400_12 =========================
+WorkingTime[deep_dbscan_inner]: 5.5888755321502686 sec
+WorkingTime[deepDBSCAN]: 326.00479769706726 sec
+DDB DETECTED COUNT : 25257 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.252s	DF : 38522.270s	DDF : 38211.505s] ==========
+========================= SF 30000_400_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.24799275398254395 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_400_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7119874954223633 sec
+DF DETECTED COUNT : 24800 
+========================= DDB 30000_400_15 =========================
+WorkingTime[deep_dbscan_inner]: 5.640836000442505 sec
+WorkingTime[deepDBSCAN]: 321.63978695869446 sec
+DDB DETECTED COUNT : 24469 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.248s	DF : 37200.712s	DDF : 37025.140s] ==========
+========================= SF 30000_400_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2919914722442627 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_400_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7139790058135986 sec
+DF DETECTED COUNT : 24046 
+========================= DDB 30000_400_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.806801795959473 sec
+WorkingTime[deepDBSCAN]: 325.59925866127014 sec
+DDB DETECTED COUNT : 23721 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.292s	DF : 36069.714s	DDF : 35907.099s] ==========
+========================= SF 30000_400_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2469925880432129 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_400_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.6919801235198975 sec
+DF DETECTED COUNT : 23444 
+========================= DDB 30000_400_21 =========================
+WorkingTime[deep_dbscan_inner]: 5.785563945770264 sec
+WorkingTime[deepDBSCAN]: 322.41287446022034 sec
+DDB DETECTED COUNT : 23174 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.247s	DF : 35166.692s	DDF : 35083.413s] ==========
+========================= SF 30000_500_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.29699254035949707 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_500_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7379724979400635 sec
+DF DETECTED COUNT : 27311 
+========================= DDB 30000_500_9 =========================
+WorkingTime[deep_dbscan_inner]: 5.8595428466796875 sec
+WorkingTime[deepDBSCAN]: 333.17769622802734 sec
+DDB DETECTED COUNT : 26925 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.297s	DF : 40967.238s	DDF : 40720.678s] ==========
+========================= SF 30000_500_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.25334739685058594 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_500_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7698051929473877 sec
+DF DETECTED COUNT : 26453 
+========================= DDB 30000_500_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.265593528747559 sec
+WorkingTime[deepDBSCAN]: 331.7727916240692 sec
+DDB DETECTED COUNT : 26083 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.253s	DF : 39680.270s	DDF : 39456.273s] ==========
+========================= SF 30000_500_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2542531490325928 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_500_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7401852607727051 sec
+DF DETECTED COUNT : 25779 
+========================= DDB 30000_500_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.265043258666992 sec
+WorkingTime[deepDBSCAN]: 333.28399682044983 sec
+DDB DETECTED COUNT : 25359 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.254s	DF : 38669.240s	DDF : 38371.784s] ==========
+========================= SF 30000_500_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.252300500869751 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_500_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7415516376495361 sec
+DF DETECTED COUNT : 25087 
+========================= DDB 30000_500_18 =========================
+WorkingTime[deep_dbscan_inner]: 7.296715497970581 sec
+WorkingTime[deepDBSCAN]: 356.3651478290558 sec
+DDB DETECTED COUNT : 24721 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.252s	DF : 37631.242s	DDF : 37437.865s] ==========
+========================= SF 30000_500_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.26699233055114746 sec
+SF DETECTED COUNT : 30000 
+========================= DF 30000_500_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.7579765319824219 sec
+DF DETECTED COUNT : 24488 
+========================= DDB 30000_500_21 =========================
+WorkingTime[deep_dbscan_inner]: 5.8218302726745605 sec
+WorkingTime[deepDBSCAN]: 341.78445291519165 sec
+DDB DETECTED COUNT : 24147 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 45000.267s	DF : 36732.758s	DDF : 36562.284s] ==========
+WorkingTime[a_l_result_to_file]: 0.008014678955078125 sec
+Connecting to the PostgreSQL database...
+Spatial selection length : 40000
+WorkingTime[spatialSelection]: 0.3674502372741699 sec
+========================= SF 40000_100_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.2919917106628418 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_100_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8339753150939941 sec
+DF DETECTED COUNT : 28084 
+========================= DDB 40000_100_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.560992240905762 sec
+WorkingTime[deepDBSCAN]: 406.28337025642395 sec
+DDB DETECTED COUNT : 27418 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.292s	DF : 42126.834s	DDF : 41533.283s] ==========
+========================= SF 40000_100_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3770179748535156 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_100_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8928625583648682 sec
+DF DETECTED COUNT : 26112 
+========================= DDB 40000_100_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.377932071685791 sec
+WorkingTime[deepDBSCAN]: 429.2477080821991 sec
+DDB DETECTED COUNT : 25453 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.377s	DF : 39168.893s	DDF : 38608.748s] ==========
+========================= SF 40000_100_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3503565788269043 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_100_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9487180709838867 sec
+DF DETECTED COUNT : 24534 
+========================= DDB 40000_100_15 =========================
+WorkingTime[deep_dbscan_inner]: 5.876660108566284 sec
+WorkingTime[deepDBSCAN]: 424.0636987686157 sec
+DDB DETECTED COUNT : 23991 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.350s	DF : 36801.949s	DDF : 36410.564s] ==========
+========================= SF 40000_100_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.36329078674316406 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_100_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8126688003540039 sec
+DF DETECTED COUNT : 23350 
+========================= DDB 40000_100_18 =========================
+WorkingTime[deep_dbscan_inner]: 5.916438817977905 sec
+WorkingTime[deepDBSCAN]: 424.1662802696228 sec
+DDB DETECTED COUNT : 22772 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.363s	DF : 35025.813s	DDF : 34582.166s] ==========
+========================= SF 40000_100_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3108968734741211 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_100_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8289890289306641 sec
+DF DETECTED COUNT : 22012 
+========================= DDB 40000_100_21 =========================
+WorkingTime[deep_dbscan_inner]: 5.898759365081787 sec
+WorkingTime[deepDBSCAN]: 425.4467306137085 sec
+DDB DETECTED COUNT : 21542 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.311s	DF : 33018.829s	DDF : 32738.447s] ==========
+========================= SF 40000_200_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3738138675689697 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_200_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.896489143371582 sec
+DF DETECTED COUNT : 31396 
+========================= DDB 40000_200_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.165766477584839 sec
+WorkingTime[deepDBSCAN]: 345.0577073097229 sec
+DDB DETECTED COUNT : 30739 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.374s	DF : 47094.896s	DDF : 46453.558s] ==========
+========================= SF 40000_200_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3173182010650635 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_200_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.915553092956543 sec
+DF DETECTED COUNT : 29615 
+========================= DDB 40000_200_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.1537652015686035 sec
+WorkingTime[deepDBSCAN]: 344.1158299446106 sec
+DDB DETECTED COUNT : 29020 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.317s	DF : 44423.416s	DDF : 43874.116s] ==========
+========================= SF 40000_200_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.34803247451782227 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_200_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8548450469970703 sec
+DF DETECTED COUNT : 28284 
+========================= DDB 40000_200_15 =========================
+WorkingTime[deep_dbscan_inner]: 5.959610223770142 sec
+WorkingTime[deepDBSCAN]: 340.9613404273987 sec
+DDB DETECTED COUNT : 27699 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.348s	DF : 42426.855s	DDF : 41889.461s] ==========
+========================= SF 40000_200_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.31380677223205566 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_200_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8801207542419434 sec
+DF DETECTED COUNT : 26901 
+========================= DDB 40000_200_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.164314031600952 sec
+WorkingTime[deepDBSCAN]: 341.2548167705536 sec
+DDB DETECTED COUNT : 26442 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.314s	DF : 40352.380s	DDF : 40004.255s] ==========
+========================= SF 40000_200_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3120765686035156 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_200_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8549857139587402 sec
+DF DETECTED COUNT : 25806 
+========================= DDB 40000_200_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.068316698074341 sec
+WorkingTime[deepDBSCAN]: 340.2130582332611 sec
+DDB DETECTED COUNT : 25485 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.312s	DF : 38709.855s	DDF : 38567.713s] ==========
+========================= SF 40000_300_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3630657196044922 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_300_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9284069538116455 sec
+DF DETECTED COUNT : 33309 
+========================= DDB 40000_300_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.415869951248169 sec
+WorkingTime[deepDBSCAN]: 363.65825152397156 sec
+DDB DETECTED COUNT : 32651 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.363s	DF : 49964.429s	DDF : 49340.158s] ==========
+========================= SF 40000_300_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3210787773132324 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_300_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9528045654296875 sec
+DF DETECTED COUNT : 31671 
+========================= DDB 40000_300_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.906031370162964 sec
+WorkingTime[deepDBSCAN]: 359.60122442245483 sec
+DDB DETECTED COUNT : 31178 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.321s	DF : 47507.453s	DDF : 47126.601s] ==========
+========================= SF 40000_300_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.32848644256591797 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_300_15 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0500152111053467 sec
+DF DETECTED COUNT : 30418 
+========================= DDB 40000_300_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.4779274463653564 sec
+WorkingTime[deepDBSCAN]: 357.9612147808075 sec
+DDB DETECTED COUNT : 29879 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.328s	DF : 45628.050s	DDF : 45176.461s] ==========
+========================= SF 40000_300_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.4111349582672119 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_300_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9243783950805664 sec
+DF DETECTED COUNT : 29067 
+========================= DDB 40000_300_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.452692270278931 sec
+WorkingTime[deepDBSCAN]: 363.5898790359497 sec
+DDB DETECTED COUNT : 28507 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.411s	DF : 43601.424s	DDF : 43124.090s] ==========
+========================= SF 40000_300_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3366968631744385 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_300_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9595556259155273 sec
+DF DETECTED COUNT : 28021 
+========================= DDB 40000_300_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.162566184997559 sec
+WorkingTime[deepDBSCAN]: 359.579176902771 sec
+DDB DETECTED COUNT : 27632 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.337s	DF : 42032.460s	DDF : 41807.579s] ==========
+========================= SF 40000_400_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.33434343338012695 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_400_9 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9701917171478271 sec
+DF DETECTED COUNT : 34755 
+========================= DDB 40000_400_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.587836980819702 sec
+WorkingTime[deepDBSCAN]: 373.8360891342163 sec
+DDB DETECTED COUNT : 34159 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.334s	DF : 52133.471s	DDF : 51612.336s] ==========
+========================= SF 40000_400_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3808307647705078 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_400_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9275147914886475 sec
+DF DETECTED COUNT : 33402 
+========================= DDB 40000_400_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.842085838317871 sec
+WorkingTime[deepDBSCAN]: 370.6862840652466 sec
+DDB DETECTED COUNT : 32800 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.381s	DF : 50103.928s	DDF : 49570.686s] ==========
+========================= SF 40000_400_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.33399009704589844 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_400_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9663290977478027 sec
+DF DETECTED COUNT : 32029 
+========================= DDB 40000_400_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.837214708328247 sec
+WorkingTime[deepDBSCAN]: 386.86540961265564 sec
+DDB DETECTED COUNT : 31493 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.334s	DF : 48044.466s	DDF : 47626.365s] ==========
+========================= SF 40000_400_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.33608460426330566 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_400_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9180207252502441 sec
+DF DETECTED COUNT : 30850 
+========================= DDB 40000_400_18 =========================
+WorkingTime[deep_dbscan_inner]: 7.397631883621216 sec
+WorkingTime[deepDBSCAN]: 386.79384088516235 sec
+DDB DETECTED COUNT : 30380 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.336s	DF : 46275.918s	DDF : 45956.794s] ==========
+========================= SF 40000_400_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.4001729488372803 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_400_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9356796741485596 sec
+DF DETECTED COUNT : 29878 
+========================= DDB 40000_400_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.853018760681152 sec
+WorkingTime[deepDBSCAN]: 385.849258184433 sec
+DDB DETECTED COUNT : 29410 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.400s	DF : 44817.936s	DDF : 44500.849s] ==========
+========================= SF 40000_500_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.34562110900878906 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_500_9 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0663504600524902 sec
+DF DETECTED COUNT : 35879 
+========================= DDB 40000_500_9 =========================
+WorkingTime[deep_dbscan_inner]: 7.330293416976929 sec
+WorkingTime[deepDBSCAN]: 408.2814693450928 sec
+DDB DETECTED COUNT : 35275 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.346s	DF : 53819.566s	DDF : 53320.781s] ==========
+========================= SF 40000_500_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.339996337890625 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_500_12 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9742755889892578 sec
+DF DETECTED COUNT : 34577 
+========================= DDB 40000_500_12 =========================
+WorkingTime[deep_dbscan_inner]: 7.072072267532349 sec
+WorkingTime[deepDBSCAN]: 404.17762756347656 sec
+DDB DETECTED COUNT : 33976 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.340s	DF : 51866.474s	DDF : 51368.178s] ==========
+========================= SF 40000_500_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3819892406463623 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_500_15 =========================
+WorkingTime[deepDBSCAN_DP]: 0.953972578048706 sec
+DF DETECTED COUNT : 33394 
+========================= DDB 40000_500_15 =========================
+WorkingTime[deep_dbscan_inner]: 7.165994167327881 sec
+WorkingTime[deepDBSCAN]: 398.4759364128113 sec
+DDB DETECTED COUNT : 32803 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.382s	DF : 50091.954s	DDF : 49602.976s] ==========
+========================= SF 40000_500_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.33098864555358887 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_500_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9885656833648682 sec
+DF DETECTED COUNT : 32356 
+========================= DDB 40000_500_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.39422345161438 sec
+WorkingTime[deepDBSCAN]: 393.5134313106537 sec
+DDB DETECTED COUNT : 31853 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.331s	DF : 48534.989s	DDF : 48173.013s] ==========
+========================= SF 40000_500_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3124656677246094 sec
+SF DETECTED COUNT : 40000 
+========================= DF 40000_500_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.8427865505218506 sec
+DF DETECTED COUNT : 31410 
+========================= DDB 40000_500_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.48151969909668 sec
+WorkingTime[deepDBSCAN]: 376.89647603034973 sec
+DDB DETECTED COUNT : 30876 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 60000.312s	DF : 47115.843s	DDF : 46690.896s] ==========
+WorkingTime[a_l_result_to_file]: 0.008999109268188477 sec
+Connecting to the PostgreSQL database...
+Spatial selection length : 50000
+WorkingTime[spatialSelection]: 0.4300723075866699 sec
+========================= SF 50000_100_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.4229874610900879 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_100_9 =========================
+WorkingTime[deepDBSCAN_DP]: 1.191068410873413 sec
+DF DETECTED COUNT : 34683 
+========================= DDB 50000_100_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.104821443557739 sec
+WorkingTime[deepDBSCAN]: 430.9713976383209 sec
+DDB DETECTED COUNT : 33796 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.423s	DF : 52025.691s	DDF : 51124.971s] ==========
+========================= SF 50000_100_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3745558261871338 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_100_12 =========================
+WorkingTime[deepDBSCAN_DP]: 1.1039824485778809 sec
+DF DETECTED COUNT : 32113 
+========================= DDB 50000_100_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.094841718673706 sec
+WorkingTime[deepDBSCAN]: 433.95809388160706 sec
+DDB DETECTED COUNT : 31309 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.375s	DF : 48170.604s	DDF : 47397.458s] ==========
+========================= SF 50000_100_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3778362274169922 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_100_15 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0767221450805664 sec
+DF DETECTED COUNT : 30152 
+========================= DDB 50000_100_15 =========================
+WorkingTime[deep_dbscan_inner]: 5.860403060913086 sec
+WorkingTime[deepDBSCAN]: 428.87080335617065 sec
+DDB DETECTED COUNT : 29507 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.378s	DF : 45229.077s	DDF : 44689.371s] ==========
+========================= SF 50000_100_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3350067138671875 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_100_18 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9581093788146973 sec
+DF DETECTED COUNT : 28698 
+========================= DDB 50000_100_18 =========================
+WorkingTime[deep_dbscan_inner]: 5.6557395458221436 sec
+WorkingTime[deepDBSCAN]: 426.1715672016144 sec
+DDB DETECTED COUNT : 27943 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.335s	DF : 43047.958s	DDF : 42340.672s] ==========
+========================= SF 50000_100_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3437356948852539 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_100_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9508781433105469 sec
+DF DETECTED COUNT : 26978 
+========================= DDB 50000_100_21 =========================
+WorkingTime[deep_dbscan_inner]: 5.8304173946380615 sec
+WorkingTime[deepDBSCAN]: 431.5278899669647 sec
+DDB DETECTED COUNT : 26445 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.344s	DF : 40467.951s	DDF : 40099.028s] ==========
+========================= SF 50000_200_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.35936975479125977 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_200_9 =========================
+WorkingTime[deepDBSCAN_DP]: 1.065000295639038 sec
+DF DETECTED COUNT : 38753 
+========================= DDB 50000_200_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.172114849090576 sec
+WorkingTime[deepDBSCAN]: 359.00763154029846 sec
+DDB DETECTED COUNT : 37870 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 58130.565s	DDF : 57164.008s] ==========
+========================= SF 50000_200_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.39061903953552246 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_200_12 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0401723384857178 sec
+DF DETECTED COUNT : 36372 
+========================= DDB 50000_200_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.126467704772949 sec
+WorkingTime[deepDBSCAN]: 357.650976896286 sec
+DDB DETECTED COUNT : 35601 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.391s	DF : 54559.040s	DDF : 53759.151s] ==========
+========================= SF 50000_200_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.35936999320983887 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_200_15 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0323081016540527 sec
+DF DETECTED COUNT : 34632 
+========================= DDB 50000_200_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.143710136413574 sec
+WorkingTime[deepDBSCAN]: 358.6964781284332 sec
+DDB DETECTED COUNT : 33903 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 51949.032s	DDF : 51213.196s] ==========
+========================= SF 50000_200_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.36264562606811523 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_200_18 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0232555866241455 sec
+DF DETECTED COUNT : 32874 
+========================= DDB 50000_200_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.176349878311157 sec
+WorkingTime[deepDBSCAN]: 356.6578769683838 sec
+DDB DETECTED COUNT : 32307 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.363s	DF : 49312.023s	DDF : 48817.158s] ==========
+========================= SF 50000_200_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.35224103927612305 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_200_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9392471313476562 sec
+DF DETECTED COUNT : 31555 
+========================= DDB 50000_200_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.029484748840332 sec
+WorkingTime[deepDBSCAN]: 355.0147936344147 sec
+DDB DETECTED COUNT : 31112 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.352s	DF : 47333.439s	DDF : 47023.015s] ==========
+========================= SF 50000_300_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.399904727935791 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_300_9 =========================
+WorkingTime[deepDBSCAN_DP]: 1.109727144241333 sec
+DF DETECTED COUNT : 41135 
+========================= DDB 50000_300_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.384994268417358 sec
+WorkingTime[deepDBSCAN]: 380.20907735824585 sec
+DDB DETECTED COUNT : 40329 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.400s	DF : 61703.610s	DDF : 60873.709s] ==========
+========================= SF 50000_300_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3764333724975586 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_300_12 =========================
+WorkingTime[deepDBSCAN_DP]: 1.1016795635223389 sec
+DF DETECTED COUNT : 39025 
+========================= DDB 50000_300_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.506773471832275 sec
+WorkingTime[deepDBSCAN]: 380.06353783607483 sec
+DDB DETECTED COUNT : 38336 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.376s	DF : 58538.602s	DDF : 57884.064s] ==========
+========================= SF 50000_300_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3593628406524658 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_300_15 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0551228523254395 sec
+DF DETECTED COUNT : 37341 
+========================= DDB 50000_300_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.540076494216919 sec
+WorkingTime[deepDBSCAN]: 378.24455213546753 sec
+DDB DETECTED COUNT : 36618 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 56012.555s	DDF : 55305.245s] ==========
+========================= SF 50000_300_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.37364792823791504 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_300_18 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0392043590545654 sec
+DF DETECTED COUNT : 35605 
+========================= DDB 50000_300_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.34447979927063 sec
+WorkingTime[deepDBSCAN]: 377.761417388916 sec
+DDB DETECTED COUNT : 34909 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.374s	DF : 53408.539s	DDF : 52741.261s] ==========
+========================= SF 50000_300_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.359377384185791 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_300_21 =========================
+WorkingTime[deepDBSCAN_DP]: 0.9732086658477783 sec
+DF DETECTED COUNT : 34235 
+========================= DDB 50000_300_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.393608331680298 sec
+WorkingTime[deepDBSCAN]: 375.5914213657379 sec
+DDB DETECTED COUNT : 33761 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 51353.473s	DDF : 51017.091s] ==========
+========================= SF 50000_400_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.40624523162841797 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_400_9 =========================
+WorkingTime[deepDBSCAN_DP]: 1.155627727508545 sec
+DF DETECTED COUNT : 43022 
+========================= DDB 50000_400_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.8543009757995605 sec
+WorkingTime[deepDBSCAN]: 405.4929392337799 sec
+DDB DETECTED COUNT : 42224 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.406s	DF : 64534.156s	DDF : 63741.493s] ==========
+========================= SF 50000_400_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.374988317489624 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_400_12 =========================
+WorkingTime[deepDBSCAN_DP]: 1.105659008026123 sec
+DF DETECTED COUNT : 41203 
+========================= DDB 50000_400_12 =========================
+WorkingTime[deep_dbscan_inner]: 6.810368776321411 sec
+WorkingTime[deepDBSCAN]: 405.6828067302704 sec
+DDB DETECTED COUNT : 40452 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.375s	DF : 61805.606s	DDF : 61083.683s] ==========
+========================= SF 50000_400_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.35936951637268066 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_400_15 =========================
+WorkingTime[deepDBSCAN_DP]: 1.093297004699707 sec
+DF DETECTED COUNT : 39424 
+========================= DDB 50000_400_15 =========================
+WorkingTime[deep_dbscan_inner]: 6.72949481010437 sec
+WorkingTime[deepDBSCAN]: 403.01379799842834 sec
+DDB DETECTED COUNT : 38759 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 59137.093s	DDF : 58541.514s] ==========
+========================= SF 50000_400_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3793025016784668 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_400_18 =========================
+WorkingTime[deepDBSCAN_DP]: 1.076138973236084 sec
+DF DETECTED COUNT : 37806 
+========================= DDB 50000_400_18 =========================
+WorkingTime[deep_dbscan_inner]: 6.691839694976807 sec
+WorkingTime[deepDBSCAN]: 406.3362741470337 sec
+DDB DETECTED COUNT : 37215 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.379s	DF : 56710.076s	DDF : 56228.836s] ==========
+========================= SF 50000_400_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.35936999320983887 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_400_21 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0151772499084473 sec
+DF DETECTED COUNT : 36553 
+========================= DDB 50000_400_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.549884080886841 sec
+WorkingTime[deepDBSCAN]: 399.9592652320862 sec
+DDB DETECTED COUNT : 35997 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 54830.515s	DDF : 54395.459s] ==========
+========================= SF 50000_500_9 =========================
+WorkingTime[deepDBSCAN_SF]: 0.41053271293640137 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_500_9 =========================
+WorkingTime[deepDBSCAN_DP]: 1.1384608745574951 sec
+DF DETECTED COUNT : 44420 
+========================= DDB 50000_500_9 =========================
+WorkingTime[deep_dbscan_inner]: 6.94333553314209 sec
+WorkingTime[deepDBSCAN]: 429.21025037765503 sec
+DDB DETECTED COUNT : 43643 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.411s	DF : 66631.138s	DDF : 65893.710s] ==========
+========================= SF 50000_500_12 =========================
+WorkingTime[deepDBSCAN_SF]: 0.4305446147918701 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_500_12 =========================
+WorkingTime[deepDBSCAN_DP]: 1.11598539352417 sec
+DF DETECTED COUNT : 42733 
+========================= DDB 50000_500_12 =========================
+WorkingTime[deep_dbscan_inner]: 7.101579427719116 sec
+WorkingTime[deepDBSCAN]: 432.17995715141296 sec
+DDB DETECTED COUNT : 41970 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.431s	DF : 64100.616s	DDF : 63387.180s] ==========
+========================= SF 50000_500_15 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3749873638153076 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_500_15 =========================
+WorkingTime[deepDBSCAN_DP]: 1.1088149547576904 sec
+DF DETECTED COUNT : 41177 
+========================= DDB 50000_500_15 =========================
+WorkingTime[deep_dbscan_inner]: 7.043971538543701 sec
+WorkingTime[deepDBSCAN]: 428.3446569442749 sec
+DDB DETECTED COUNT : 40401 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.375s	DF : 61766.609s	DDF : 61029.845s] ==========
+========================= SF 50000_500_18 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3593599796295166 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_500_18 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0792834758758545 sec
+DF DETECTED COUNT : 39713 
+========================= DDB 50000_500_18 =========================
+WorkingTime[deep_dbscan_inner]: 7.1630167961120605 sec
+WorkingTime[deepDBSCAN]: 427.9022219181061 sec
+DDB DETECTED COUNT : 39097 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 59570.579s	DDF : 59073.402s] ==========
+========================= SF 50000_500_21 =========================
+WorkingTime[deepDBSCAN_SF]: 0.3593719005584717 sec
+SF DETECTED COUNT : 50000 
+========================= DF 50000_500_21 =========================
+WorkingTime[deepDBSCAN_DP]: 1.0954198837280273 sec
+DF DETECTED COUNT : 38492 
+========================= DDB 50000_500_21 =========================
+WorkingTime[deep_dbscan_inner]: 6.956484317779541 sec
+WorkingTime[deepDBSCAN]: 422.90497279167175 sec
+DDB DETECTED COUNT : 37782 
+========== RESULT_TIME(AVERAGE PREDICT TIME IS 1.5s) [SF : 75000.359s	DF : 57739.095s	DDF : 57095.905s] ==========
+WorkingTime[a_l_result_to_file]: 0.0 sec
+WorkingTime[save]: 0.0 sec
+WorkingTime[e_k_result_to_file]: 0.06249547004699707 sec
+WorkingTime[centralparkExpAll]: 29886.613745689392 sec
+
+Process finished with exit code 0
