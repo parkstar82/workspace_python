@@ -211,7 +211,7 @@ def removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc):
     while True:
         # 내 이웃들에서 나를 빼기
         for neighbor_id in neighborhoods[id]:
-            neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [id])
+            neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [id], assume_unique=True)
 
         # 내 이웃들을 검사해서 스택에 넣기
         if minPts < len(neighborhoods[id]):
@@ -221,8 +221,8 @@ def removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc):
                     continue
 
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
-                    neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [neighbor_id])
-                    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [neighbor_id])
+                    neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [neighbor_id], assume_unique=True)
+                    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [neighbor_id], assume_unique=True)
                     labels[neighbor_id] = -2
                     is_core[neighbor_id] = False
                     stack.add(neighbor_id)

@@ -4,6 +4,8 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/venv/Lib/site-packages/scikit-learn" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/deepDBSCAN" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/deepDBSCAN/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/deepDBSCAN/venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
