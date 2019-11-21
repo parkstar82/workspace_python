@@ -205,7 +205,7 @@ def recalc_core(core_samples, neighborhoods, min_samples):
 def removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc):
     labels[id] = -2
     is_core[id] = False
-    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [id])
+    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [id], assume_unique=True)
 
     stack = set([])
     while True:
