@@ -181,7 +181,7 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
     objectDetector = ObjectDetector(detectedArray.shape[0], dc, detectedArray)
 
     # Deep Filtering of Neighborhoods Graph pr
-    detectedCount= deepGraphFiltering2(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
+    detectedCount= deepGraphFiltering(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
 
     # detect core_samples
     temp_detectedCount = detectedCount
@@ -216,6 +216,10 @@ def removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc):
         # 내 이웃들을 검사해서 스택에 넣기
         if minPts < len(neighborhoods[id]):
             for neighbor_id in neighborhoods[id]:
+                # Skip noise
+                if -2 == labels[neighbor_id]:
+                    continue
+
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
                     neighborhoods[neighbor_id] = np.setdiff1d(neighborhoods[neighbor_id], [neighbor_id])
                     neighborhoods[id] = np.setdiff1d(neighborhoods[id], [neighbor_id])
@@ -253,12 +257,20 @@ def deepGraphFiltering(is_core, neighborhoods, labels, n_neighbors, minPts, dete
     for i in range(len(sorted_n_neighbors)):
         id = sorted_n_neighbors[i][0]
         if len(neighborhoods[id]) < minPts:
-             # labels[id] = -2
-             is_core[id] = False
-             continue
+            # labels[id] = -2
+            is_core[id] = False
+            continue
+
+        # Skip noise
+        if -2 == labels[id]:
+            continue
 
         if detectFunc.hasObjects_with_detectedArray(id):
             for neighbor_id in neighborhoods[id]:
+                # Skip noise
+                if -2 == labels[neighbor_id]:
+                    continue
+
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
                     removeNoise(neighbor_id, is_core, labels, neighborhoods, minPts, detectFunc)
 
@@ -290,12 +302,16 @@ def deepGraphFiltering2(is_core, neighborhoods, labels, n_neighbors, minPts, det
             noise_index.append(i)
 
     # print( noise_index )
-    sorted_n_neighbors = np.delete(sorted_n_neighbors, noise_index, 0)
+#    sorted_n_neighbors = np.delete(sorted_n_neighbors, noise_index, 0)
 
     for i in range(len(sorted_n_neighbors)):
         id = sorted_n_neighbors[i][0]
-        is_core[id] = check_is_core(neighborhoods[id], false_detected_nodes, minPts)
-        if ( is_core[id] == False ):
+        if len( neighborhoods[id] ) < minPts :
+            is_core[id] = False
+            continue
+
+        if check_is_core(neighborhoods[id], false_detected_nodes, minPts) == False :
+            is_core[id] = False
             continue
 
         if detectFunc.hasObjects_with_detectedArray(id):
@@ -303,10 +319,19 @@ def deepGraphFiltering2(is_core, neighborhoods, labels, n_neighbors, minPts, det
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
                     np.append(false_detected_nodes, neighbor_id)
                     is_core[neighbor_id] = False
+                    labels[neighbor_id] = -2
             is_core[id] = check_is_core(neighborhoods[id], false_detected_nodes, minPts)
 
         else:
             np.append(false_detected_nodes, id)
+            is_core[id] = False
+            labels[neighbor_id] = -2
+
+    for i in range(len(neighborhoods)):
+        neighborhoods[i] = np.setdiff1d(neighborhoods[i], false_detected_nodes)
+        if len(neighborhoods[i]) >= minPts:
+            is_core[id] = True
+        else:
             is_core[id] = False
 
     return detectFunc.detectedCount
