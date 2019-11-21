@@ -22,7 +22,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.utils import check_array, check_consistent_length
 
 
-class DeepDBSCAN(BaseEstimator, ClusterMixin):
+class DeepDBSCAN_NRN(BaseEstimator, ClusterMixin):
     def __init__(self, eps=0.5, min_samples=5, metric='euclidean',
                  metric_params=None, algorithm='auto', leaf_size=30, p=None,
                  n_jobs=None):
@@ -35,7 +35,7 @@ class DeepDBSCAN(BaseEstimator, ClusterMixin):
         self.p = p
         self.n_jobs = n_jobs
 
-    def fit(self, X, y=None, ori_X=None,  sample_weight=None,
+    def fit(self, X, y=None, ori_X=None, sample_weight=None,
             deepEngine=None, dc=0):
         """Perform DBSCAN clustering from features or distance matrix.
 
@@ -58,7 +58,7 @@ class DeepDBSCAN(BaseEstimator, ClusterMixin):
         detectedCount = -1
         if deepEngine is not None:
             clust = deep_dbscan(X, ori_X, sample_weight=sample_weight,
-                           detectFunc=deepEngine, dc=dc, **self.get_params())
+                                detectFunc=deepEngine, dc=dc, **self.get_params())
             detectedCount = clust[2]
             clust = (clust[0], clust[1])
             self.core_sample_indices_, self.labels_ = clust
@@ -102,12 +102,9 @@ class DeepDBSCAN(BaseEstimator, ClusterMixin):
         return self.labels_
 
 
-
-
 def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metric_params=None,
-           algorithm='auto', leaf_size=30, p=2, sample_weight=None,
-           n_jobs=None, detectFunc=None, dc=0):
-
+                algorithm='auto', leaf_size=30, p=2, sample_weight=None,
+                n_jobs=None, detectFunc=None, dc=0):
     if not eps > 0.0:
         raise ValueError("eps must be positive.")
 
@@ -146,7 +143,6 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
         neighborhoods = neighbors_model.radius_neighbors(X, eps,
                                                          return_distance=False)
 
-
     if sample_weight is None:
         n_neighbors = np.array([len(neighbors)
                                 for neighbors in neighborhoods])
@@ -177,11 +173,11 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
 
     detectedArray = numpy_ori_X[:, 3:4]
     detectedArray = detectedArray.astype(np.intp)
-    detectedArray = np.reshape(detectedArray, (-1, ))
+    detectedArray = np.reshape(detectedArray, (-1,))
     objectDetector = ObjectDetector(detectedArray.shape[0], dc, detectedArray)
 
     # Deep Filtering of Neighborhoods Graph pr
-    detectedCount= deepGraphFiltering2(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
+    detectedCount = deepGraphFiltering(core_samples, neighborhoods, labels, n_neighbors, min_samples, objectDetector)
 
     # detect core_samples
     temp_detectedCount = detectedCount
@@ -194,7 +190,6 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
 
 
 def recalc_core(core_samples, neighborhoods, min_samples):
-
     for i in range(len(core_samples)):
         # if i == 78:
         #     print('core_samples[i] : {}, core_samples[i] : {}'.format(core_samples[i], ) )
@@ -229,45 +224,8 @@ def removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc):
         id = list(stack)[0]
         stack.remove(id)
 
+
 def deepGraphFiltering(is_core, neighborhoods, labels, n_neighbors, minPts, detectFunc):
-    ### ID 부여
-    # Create id array
-    sorted_n_neighbors = np.array(range(len(neighborhoods))).reshape(len(neighborhoods), -1)
-    # Merge id array and neighbor array
-    n_neighbors = np.reshape(n_neighbors, (len(n_neighbors), -1))
-    sorted_n_neighbors = np.hstack((sorted_n_neighbors, n_neighbors))
-
-    ### Sort by neighbors length
-    sorted_n_neighbors = np.array(sorted(sorted_n_neighbors, key=lambda neighbor: neighbor[1], reverse=True))
-
-    ### Delete point without neighbors.
-    noise_index = []
-    # print ( sorted_n_neighbors, len(sorted_n_neighbors))
-    for i in range(len(sorted_n_neighbors)-1, 0,-1):
-        if sorted_n_neighbors[i][1] <= 1:
-            noise_index.append(i)
-
-    # print( noise_index )
-    sorted_n_neighbors = np.delete(sorted_n_neighbors, noise_index, 0)
-
-    for i in range(len(sorted_n_neighbors)):
-        id = sorted_n_neighbors[i][0]
-        if len(neighborhoods[id]) < minPts:
-             # labels[id] = -2
-             is_core[id] = False
-             continue
-
-        if detectFunc.hasObjects_with_detectedArray(id):
-            for neighbor_id in neighborhoods[id]:
-                if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
-                    removeNoise(neighbor_id, is_core, labels, neighborhoods, minPts, detectFunc)
-
-        else:
-            removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc)
-
-    return detectFunc.detectedCount
-
-def deepGraphFiltering2(is_core, neighborhoods, labels, n_neighbors, minPts, detectFunc):
     ### ID 부여
     # Create id array
     sorted_n_neighbors = np.array(range(len(neighborhoods))).reshape(len(neighborhoods), -1)
@@ -295,21 +253,22 @@ def deepGraphFiltering2(is_core, neighborhoods, labels, n_neighbors, minPts, det
     for i in range(len(sorted_n_neighbors)):
         id = sorted_n_neighbors[i][0]
         is_core[id] = check_is_core(neighborhoods[id], false_detected_nodes, minPts)
-        if ( is_core[id] == False ):
+        if (isis_core[id] == False):
             continue
 
         if detectFunc.hasObjects_with_detectedArray(id):
             for neighbor_id in neighborhoods[id]:
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
-                    np.append(false_detected_nodes, neighbor_id)
+                    fals_detected_nodes.append(neighbor_id)
                     is_core[neighbor_id] = False
             is_core[id] = check_is_core(neighborhoods[id], false_detected_nodes, minPts)
 
         else:
-            np.append(false_detected_nodes, id)
+            false_detected_nodes.append(id)
             is_core[id] = False
 
     return detectFunc.detectedCount
+
 
 def check_is_core(neighborArray, falseArray, minPts):
     filtered_neiborhoods = np.setdiff1d(neighborArray, falseArray)
@@ -317,6 +276,7 @@ def check_is_core(neighborArray, falseArray, minPts):
         return True
 
     return False
+
 
 def is_timeoverlap(starttime1, endtime1, starttime2, endtime2, period_second):
     """
@@ -350,6 +310,7 @@ def is_timeoverlap(starttime1, endtime1, starttime2, endtime2, period_second):
 
     return is_overlap
 
+
 def deepDetection(photoInfos, dc):
     """
     Get the photoInfos that match the detection conditions.
@@ -358,7 +319,7 @@ def deepDetection(photoInfos, dc):
     :return: list Detected photoInfos
     """
     print('Detected count : {}'.format(len(photoInfos)))
-    return [ p for p in photoInfos if p[3]>=dc ]
+    return [p for p in photoInfos if p[3] >= dc]
 
 
 @logging_time

@@ -16,7 +16,7 @@ DEBUG = False
 F_EPSILON = 0.3     # meter
 MIN_PTS = 15
 
-IS_TO_FILE = False
+IS_TO_FILE = True
 
 def config(filename='..\data\database.ini', section='postgresql'):
     # create a parser
