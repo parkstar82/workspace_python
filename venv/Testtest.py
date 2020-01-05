@@ -235,3 +235,29 @@ def aa(labels):
 print(labels)
 aa(labels)
 print(labels)
+
+e = 0.1 * 1000
+print('{}'.format(e))
+print('{:<8.0f}'.format(e))
+print('{}'.format(e))
+
+aa = ['']
+bb = [9, 12, 15, 18, 21]
+
+print(np.append(aa, bb))
+
+
+aa = np.asarray([[1,2,3,4,5,6,7,8,9],
+      [2,3,4,5,6,7,8,9],
+      [3,4,5,6,7,8,9],
+      [4,5,6,7,8,9],
+      [5,6,7,8,9],
+      [6,7,8,9]])
+
+print('aaaaaaaaaaaaa')
+print(aa)
+print(np.where(aa == 9))
+# for i in range(len(aa)):
+#     aa[i] = np.delete(aa[i], np.where(np.array(aa[i]) == 9))
+
+print(aa)

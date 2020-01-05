@@ -885,13 +885,13 @@ def centralparkExpAll(aptime=1.5):
     """
     k = 1000
     kms_per_radian = 6378.14
-    # list_data_limit = [10*k, 20*k, 30*k, 40*k, 50*k]
-    # list_epsilon  = [0.1, 0.2, 0.3, 0.4, 0.5]
-    # list_minpts = [9, 12, 15, 18, 21]
+    list_data_limit = [10*k, 20*k, 30*k, 40*k, 50*k]
+    list_epsilon  = [0.1, 0.2, 0.3, 0.4, 0.5]
+    list_minpts = [9, 12, 15, 18, 21]
 
-    list_data_limit = [30*k, 40*k]
-    list_epsilon = [0.1, 0.5]
-    list_minpts = [9, 21]
+    # list_data_limit = [30*k, 40*k]
+    # list_epsilon = [0.1, 0.5]
+    # list_minpts = [9, 21]
 
     result_limit_sf = []
     result_limit_df = []

@@ -187,7 +187,7 @@ def deep_dbscan(X, ori_X=None, eps=0.5, min_samples=5, metric='minkowski', metri
     temp_detectedCount = detectedCount
     recalc_core(core_samples, neighborhoods, min_samples)
 
-    deep_dbscan_inner(core_samples, neighborhoods, labels, detectedArray, dc, min_samples)
+    deep_dbscan_inner(core_samples, neighborhoods, labels)
     # print('deep_dbscan_inner_ori detectedCount : {}'.format(temp_detectedCount - detectedCount))
 
     return np.where(core_samples)[0], labels, detectedCount
@@ -257,7 +257,6 @@ def deepGraphFiltering(is_core, neighborhoods, labels, n_neighbors, minPts, dete
     for i in range(len(sorted_n_neighbors)):
         id = sorted_n_neighbors[i][0]
         if len(neighborhoods[id]) < minPts:
-            # labels[id] = -2
             is_core[id] = False
             continue
 
@@ -273,6 +272,10 @@ def deepGraphFiltering(is_core, neighborhoods, labels, n_neighbors, minPts, dete
 
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
                     removeNoise(neighbor_id, is_core, labels, neighborhoods, minPts, detectFunc)
+
+                if len(neighborhoods[id]) < minPts:
+                    is_core[id] = False
+                    break
 
         else:
             removeNoise(id, is_core, labels, neighborhoods, minPts, detectFunc)
@@ -387,8 +390,7 @@ def deepDetection(photoInfos, dc):
 
 
 @logging_time
-def deep_dbscan_inner(is_core, neighborhoods, labels,
-                      detectedArray, dc=0, minPts=1):
+def deep_dbscan_inner(is_core, neighborhoods, labels):
     label_num = 0
     stack = []
 
