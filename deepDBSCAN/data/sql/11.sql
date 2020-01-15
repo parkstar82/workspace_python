@@ -1,0 +1,1 @@
+select distinct(ST_ASTEXT(st_setsrid)) from photo_direction_intersection_point;
