@@ -271,6 +271,7 @@ def deepGraphFiltering(is_core, neighborhoods, labels, n_neighbors, minPts, dete
                     continue
 
                 if not detectFunc.hasObjects_with_detectedArray(neighbor_id):
+                    neighborhoods[id] = np.setdiff1d(neighborhoods[id], [neighbor_id], assume_unique=True)
                     removeNoise(neighbor_id, is_core, labels, neighborhoods, minPts, detectFunc)
 
                 if len(neighborhoods[id]) < minPts:
