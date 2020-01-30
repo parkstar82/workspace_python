@@ -410,8 +410,17 @@ def deepDBSCAN_SF(photoInfos=None, filePath=None, dc=1, epsilon=0.1, minpts=9 ):
     # print('조건을 만족하는 개수 : {}'.format(len(detectedPhotoInfos)))
 
     if 0 < len(detectedPhotoInfos):
-        coords = (detectedPhotoInfos[:,4:]).astype(dtype='float32')
-        coords = np.reshape(coords , (-1,2))
+        for aa in detectedPhotoInfos:
+            print(aa)
+            break
+
+        coords = (detectedPhotoInfos[:, 4:]).astype(dtype='float32')
+
+        print(coords)
+        coords = np.reshape(coords , (-1, 2))
+        print('###################################')
+        print(coords)
+
 
         # define epsilon as 1.5 kilometers, converted to radians for use by haversine
         # epsilon = F_EPSILON / kms_per_radian
